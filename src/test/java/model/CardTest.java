@@ -6,19 +6,26 @@ import org.junit.jupiter.api.Test;
 class CardTest {
     @Test
     void isPlaceableTest() {
-        Card moveCard = new Card(), staticCard = new Card();
-        moveCard.setSuit(Card.Suit.DIAMOND);
-        staticCard.setSuit(Card.Suit.SPADES);
+        try {
+            Card moveCard = new Card(1, Card.Suit.DIAMOND), staticCard = new Card(2, Card.Suit.SPADES);
 
-        Assertions.assertTrue(staticCard.isPlaceable(moveCard));
+            Assertions.assertTrue(staticCard.isPlaceable(moveCard));
 
-        moveCard = new Card();
-        staticCard = new Card();
+            //value test
+            moveCard = new Card(8, Card.Suit.DIAMOND);
+            staticCard = new Card(7, Card.Suit.SPADES);
 
-        moveCard.setSuit(Card.Suit.SPADES);
-        staticCard.setSuit(Card.Suit.CLUB);
+            Assertions.assertFalse(staticCard.isPlaceable(moveCard));
 
-        Assertions.assertFalse(staticCard.isPlaceable(moveCard));
+            //suit test
+            moveCard = new Card(1, Card.Suit.DIAMOND);
+            staticCard = new Card(4, Card.Suit.DIAMOND);
 
+            Assertions.assertFalse(staticCard.isPlaceable(moveCard));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
