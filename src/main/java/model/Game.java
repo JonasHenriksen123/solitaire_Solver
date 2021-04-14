@@ -22,7 +22,11 @@ public class Game {
     }
 
     public void updateModel(CardStateDTO cardState) throws Exception {
+        //TODO update model by cardstate object
+    }
 
+    public void initializeModel(CardStateDTO cardState) throws Exception {
+        //TODO update model by cardstate object
     }
 
 }
