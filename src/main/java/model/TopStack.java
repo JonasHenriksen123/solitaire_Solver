@@ -2,17 +2,12 @@ package model;
 
 import java.util.LinkedList;
 
-public class BottomStack implements ICardStack {
-    private LinkedList<ICard> cards;
+public class TopStack implements ICardStack {
+    private LinkedList<Card> cards;
 
-    public BottomStack(int unturnedCards) {
-        cards = new LinkedList<ICard>();
-        for (int i = 0; i < unturnedCards; i++) {
-            cards.add(new UntCard());
-        }
+    public TopStack() {
+        cards = new LinkedList<Card>();
     }
-
-
 
     //region overrides
     public void removeTop() {
@@ -20,16 +15,17 @@ public class BottomStack implements ICardStack {
     }
 
     public void addTop(ICard newCard) throws Exception {
-        if (newCard instanceof Card)
-            cards.addFirst(newCard);
-        else
+        if (newCard instanceof Card) {
+            cards.addFirst((Card) newCard);
+        } else {
             throw new Exception("Tried to add unturned card to top of stack");
+        }
     }
 
     public void addTop(ICard[] newCards) throws Exception {
         for (int i = newCards.length-1; i >= 0; i--) {
             if (newCards[i] instanceof Card) {
-                cards.addFirst(newCards[i]);
+                cards.addFirst((Card) newCards[i]);
             } else {
                 throw new Exception("Tried to add unturned card to top of stack");
             }
@@ -45,26 +41,11 @@ public class BottomStack implements ICardStack {
     }
 
     public ICard takeTop() {
-        ICard card = cards.getFirst();
+        Card card =  cards.getFirst();
         cards.removeFirst();
         return card;
     }
     //endregion
 
-    public boolean isTopTurned() {
-        return cards.getFirst().isTurned();
-    }
 
-    public int unturnedCards() {
-        int numb = 0;
-        for (ICard card : cards) {
-            if (card instanceof UntCard)
-                numb++;
-        }
-        return numb;
-    }
-
-    public int turnedCards() {
-        return size() - unturnedCards();
-    }
 }

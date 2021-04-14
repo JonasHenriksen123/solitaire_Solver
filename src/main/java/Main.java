@@ -3,6 +3,7 @@ import picrecaccess.CardPlacementDAO;
 import picrecaccess.ICardPlacementDAO;
 import picrecaccess.TestCardPlacementDAO;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -35,14 +36,6 @@ public class Main {
         //TODO start up web service for solitaire solver
 
         //TODO start up webapp service
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            System.out.println("System was interrupted");
-        }
-
-
 
         System.out.println("System started in \"" + (System.currentTimeMillis() - startTime) + "\" ms");
     }

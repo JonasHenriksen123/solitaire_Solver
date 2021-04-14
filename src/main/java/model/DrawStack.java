@@ -16,6 +16,7 @@ public class DrawStack implements ICardStack {
         }
     }
 
+    //region overrides
     public void removeTop() {
         cards.removeFirst();
     }
@@ -46,4 +47,6 @@ public class DrawStack implements ICardStack {
         removeTop();
         return new UntCard();
     }
+
+    //endregion
 }

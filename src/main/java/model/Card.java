@@ -5,9 +5,11 @@ public class Card implements ICard
     private int cardValue;
     private Suit suit;
 
+    //region overrides
     public boolean isTurned() {
         return true;
     }
+    //endregion
 
     public enum Suit {
         HEARTS,
@@ -50,5 +52,59 @@ public class Card implements ICard
     }
 
     public int getCardValue() {return cardValue; }
+
+    public static Card toCard(String card) throws Exception {
+        Suit suit;
+        int cardValue = 0;
+        switch (card.charAt(1)) {
+            case 'h': {
+                suit = Suit.HEARTS;
+                break;
+            }
+            case 's': {
+                suit = Suit.SPADES;
+                break;
+            }
+            case 'c': {
+                suit = Suit.CLUB;
+                break;
+            }
+            case 'd': {
+                suit = Suit.DIAMOND;
+                break;
+            }
+            default:
+                throw new Exception("Suit of card was unknown");
+        }
+
+        if ((int)card.charAt(0) > 1 && (int)card.charAt(0) < 11) {
+            cardValue = (int)card.charAt(0);
+        } else {
+            switch (card.charAt(0)) {
+                case 'A': {
+                    cardValue = 1;
+                    break;
+                }
+                case 'K': {
+                    cardValue = 13;
+                    break;
+                }
+                case 'Q': {
+                    cardValue = 12;
+                    break;
+                }
+                case 'J': {
+                    cardValue = 11;
+                    break;
+                }
+                default: {
+                    throw new Exception("card face value was unknown");
+                }
+            }
+        }
+
+        return new Card(cardValue, suit);
+
+    }
 
 }
