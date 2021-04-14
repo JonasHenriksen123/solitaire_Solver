@@ -19,6 +19,6 @@ class CardTest {
         staticCard.setSuit(Card.Suit.CLUB);
 
         Assertions.assertFalse(staticCard.isPlaceable(moveCard));
-
     }
+
 }
