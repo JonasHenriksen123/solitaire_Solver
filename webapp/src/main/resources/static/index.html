@@ -2,10 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Solitaire</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>start of page</h1>
+
+<form class="box" action="index.html" method="post">
+    <h1>Solitaire Solver</h1>
+    <button class="btn" id="start" type="button">Start</button>
+    <button class="btn" id="help" type="button" onclick="togglePopup()">help</button>
+    <button class="btn" id="git" type="button" onclick="goToGit()">github</button>
+</form>
+
+<!---
+Stykket nedenunder er til pop-up når der trykkes på HELP-knappen
+--->
+
+<div class="popup" id="popup-1">
+    <div class="overlay"></div>
+    <div class="content">
+        <div class="close-btn" onclick="togglePopup()">&times;</div>
+        <h1>Help</h1>
+        <p>1. Press the "Start"-button</p>
+        <p>2. Place your camera above the solitaire game, and make sure it can capture the whole game</p>
+        <p>3. Press the "Capture"-button</p>
+        <p>4. Wait until a move is calculated</p>
+        <p>5. Make the move</p>
+        <p>6. Repeat until finished</p>
+    </div>
+
+</div>
+
 
 </body>
+
+<script src="script.js"></script>
+
 </html>
