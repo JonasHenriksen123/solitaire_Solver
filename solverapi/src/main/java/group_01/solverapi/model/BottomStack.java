@@ -1,5 +1,7 @@
 package group_01.solverapi.model;
 
+import group_01.solverapi.exceptions.ManipulateException;
+
 import java.util.LinkedList;
 
 public class BottomStack implements ICardStack {

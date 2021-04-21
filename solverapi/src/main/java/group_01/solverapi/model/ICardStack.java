@@ -11,7 +11,6 @@ public interface ICardStack {
     public int size();
     public ICard peekTop();
     public ICard takeTop() throws ManipulateException;
-    public ICard takeTop();
     public boolean isEmpty();
     public boolean containsCard(Card card);
 

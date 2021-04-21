@@ -1,6 +1,7 @@
 package group_01.solverapi.model;
 
 import com.sun.istack.internal.Nullable;
+import group_01.solverapi.exceptions.ManipulateException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.LinkedList;
