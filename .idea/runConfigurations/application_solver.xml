@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="application solver" type="CompoundRunConfigurationType">
+    <toRun name="solitaire solver API" type="SpringBootApplicationConfigurationType" />
+    <toRun name="web app" type="SpringBootApplicationConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
