@@ -1,9 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Solitaire solver" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="Main" />
-    <module name="solitaire_Solver" />
-    <method v="2">
-      <option name="Make" enabled="true" />
-    </method>
-  </configuration>
-</component>
