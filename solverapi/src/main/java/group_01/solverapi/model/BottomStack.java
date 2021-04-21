@@ -1,5 +1,7 @@
 package group_01.solverapi.model;
 
+import group_01.solverapi.exceptions.ManipulateException;
+
 import java.util.LinkedList;
 
 public class BottomStack implements ICardStack {
@@ -15,23 +17,23 @@ public class BottomStack implements ICardStack {
 
 
     //region overrides
-    public void removeTop() {
+    public void removeTop() throws ManipulateException {
         cards.removeFirst();
     }
 
-    public void addTop(ICard newCard) throws Exception {
+    public void addTop(ICard newCard) throws ManipulateException {
         if (newCard instanceof Card)
             cards.addFirst(newCard);
         else
-            throw new Exception("Tried to add unturned card to top of stack");
+            throw new ManipulateException("Tried to add unturned card to top of stack");
     }
 
-    public void addTop(ICard[] newCards) throws Exception {
+    public void addTop(ICard[] newCards) throws ManipulateException {
         for (int i = newCards.length-1; i >= 0; i--) {
             if (newCards[i] instanceof Card) {
                 cards.addFirst(newCards[i]);
             } else {
-                throw new Exception("Tried to add unturned card to top of stack");
+                throw new ManipulateException("Tried to add unturned card to top of stack");
             }
         }
     }
@@ -44,7 +46,7 @@ public class BottomStack implements ICardStack {
         return cards.getFirst();
     }
 
-    public ICard takeTop() {
+    public ICard takeTop() throws ManipulateException {
         ICard card = cards.getFirst();
         cards.removeFirst();
         return card;
