@@ -1,24 +1,58 @@
 package group_01.solverapi;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import group_01.solverapi.control.Controller;
+import group_01.solverapi.exceptions.BadInputException;
+import group_01.solverapi.exceptions.InitializeException;
+import group_01.solverapi.model.Move;
+import group_01.solverapi.picrecaccess.CardStateDTO;
+import group_01.solverapi.picrecaccess.ICardStateDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Configuration
 public class ServiceRestController {
     private Controller controller;
+    private ObjectMapper objectMapper;
+    private Logger logger;
 
-    public ServiceRestController(Controller controller) {
+    public ServiceRestController(Controller controller, ObjectMapper objectMapper) {
         this.controller = controller;
+        this.objectMapper = objectMapper;
+        this.logger = LoggerFactory.getLogger(ServiceRestController.class);
     }
 
-    @RequestMapping("solver")
-    @GetMapping
-    public String greater() {
-        return "Welcome from solitaire solver";
+    @RequestMapping("initialize")
+    @PostMapping
+    public ResponseEntity Initial(String json)
+    {
+        ICardStateDTO cardState;
+        try {
+            cardState = objectMapper.readValue(json, ICardStateDTO.class);
+        } catch (JsonProcessingException e) {
+           logger.error("Fatal error when decoding input from client");
+           throw new BadInputException();
+        }
+
+        Move move;
+        try {
+            move = controller.InitializeGame(cardState);
+        } catch (InitializeException e) {
+            logger.error("Fatal error when initializing the game model");
+            throw new InitializeException();
+        }
+
+        ResponseEntity.BodyBuilder bodyBuilder = ResponseEntity.accepted();
+        bodyBuilder.body(move);
+        return bodyBuilder.build();
     }
 
 

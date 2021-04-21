@@ -18,15 +18,15 @@ public class DrawStack implements ICardStack {
     }
 
     //region overrides
-    public void removeTop() {
+    public void removeTop() throws ManipulateException {
         cards.removeFirst();
     }
 
-    public void addTop(@Nullable ICard newCard) {
+    public void addTop(@Nullable ICard newCard) throws ManipulateException {
         cards.addFirst(new UntCard());
     }
 
-    public void addTop(ICard[] newCards) {
+    public void addTop(ICard[] newCards) throws ManipulateException {
         for (int i = newCards.length-1; i >= 0; i--) {
             if (newCards[i] instanceof UntCard) {
                 cards.addFirst((UntCard) newCards[i]);
@@ -44,7 +44,7 @@ public class DrawStack implements ICardStack {
         return cards.getFirst();
     }
 
-    public ICard takeTop() {
+    public ICard takeTop() throws ManipulateException {
         removeTop();
         return new UntCard();
     }
