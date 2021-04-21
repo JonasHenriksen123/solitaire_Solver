@@ -1,5 +1,7 @@
 package group_01.solverapi.model;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.LinkedList;
 
 public class BottomStack implements ICardStack {
@@ -49,7 +51,35 @@ public class BottomStack implements ICardStack {
         cards.removeFirst();
         return card;
     }
+
+    @Override
+    public boolean isEmpty() {
+        return size() ==0;
+    }
+
+    @Override
+    public boolean containsCard(Card card) {
+        for(ICard card1: this.cards){
+            if(card1 instanceof Card){
+                if (((Card) card1).equals(card))
+                    return true;
+
+            }
+        }
+        return false;
+    }
+
     //endregion
+
+    public boolean containsCard(int cardValue){
+        for(ICard card1: this.cards){
+            if(card1 instanceof Card){
+                if (((Card) card1).equals(cardValue))
+                    return true;
+            }
+        }
+        return false;
+    }
 
     public boolean isTopTurned() {
         return cards.getFirst().isTurned();
@@ -63,6 +93,7 @@ public class BottomStack implements ICardStack {
         }
         return numb;
     }
+
 
     public int turnedCards() {
         return size() - unturnedCards();

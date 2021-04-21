@@ -2,6 +2,7 @@ package group_01.solverapi.model;
 
 import group_01.solverapi.picrecaccess.CardStateDTO;
 import org.springframework.context.annotation.Primary;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -31,6 +32,31 @@ public class Game {
 
     public void initializeModel(CardStateDTO cardState) throws Exception {
         //TODO update model by cardstate object
+    }
+
+    public boolean hasEmptyBottomStack() {
+        for(ICardStack stack: bottomsStacks) {
+            if(stack.isEmpty())
+                return true;
+        }
+        return false;
+    }
+
+    public boolean getFreeKing(){
+        for(BottomStack stack: bottomsStacks){
+            if(stack.containsCard(13) && stack.unturnedCards() == 0)
+                return true;
+        }
+        return false;
+    }
+
+    public boolean playStackEmpty(){
+        return playStack.isEmpty();
+    }
+
+    public @Nullable
+    ICard getCard(){
+        return null;
     }
 
 }

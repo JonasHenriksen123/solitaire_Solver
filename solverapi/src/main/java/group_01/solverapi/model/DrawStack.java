@@ -1,6 +1,7 @@
 package group_01.solverapi.model;
 
 import com.sun.istack.internal.Nullable;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.LinkedList;
 
@@ -46,6 +47,16 @@ public class DrawStack implements ICardStack {
     public ICard takeTop() {
         removeTop();
         return new UntCard();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size() ==0;
+    }
+
+    @Override
+    public boolean containsCard(Card card) {
+        throw new NotImplementedException();
     }
 
     //endregion

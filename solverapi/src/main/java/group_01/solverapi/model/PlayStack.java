@@ -1,5 +1,7 @@
 package group_01.solverapi.model;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.LinkedList;
 
 public class PlayStack implements ICardStack {
@@ -45,6 +47,17 @@ public class PlayStack implements ICardStack {
         cards.removeFirst();
         return card;
     }
+
+    @Override
+    public boolean isEmpty() {
+        return size() ==0;
+    }
+
+    @Override
+    public boolean containsCard(Card card) {
+        throw new NotImplementedException();
+    }
+
     //endregion
 
 

@@ -33,6 +33,13 @@ public class Card implements ICard
             return this.suit == Suit.HEARTS || this.suit == Suit.DIAMOND;
         }
     }
+    public boolean equals(Card card) {
+        return this.suit == card.suit && this.cardValue == card.cardValue;
+    }
+
+    public boolean equals(int cardValue) {
+        return this.cardValue == cardValue;
+    }
 
 
     public Suit getSuit() {
