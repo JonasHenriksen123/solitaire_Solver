@@ -5,3 +5,7 @@ function togglePopup(){
 function goToGit(){
     window.open("https://github.com/JonasHenriksen123/solitaire_Solver");
 }
+
+function startGame(){
+    window.location="camera.html";
+}
