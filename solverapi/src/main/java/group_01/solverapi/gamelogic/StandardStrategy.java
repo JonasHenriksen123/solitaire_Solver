@@ -1,16 +1,19 @@
 package group_01.solverapi.gamelogic;
 
 import group_01.solverapi.model.*;
+import org.springframework.stereotype.Component;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-
+@Component
 public class StandardStrategy {
 
     private Game game;
 
-    public Move execute(Game game) {
-        this.game = game;
+     public StandardStrategy(Game game) {
+         this.game = game;
+     }
 
+    public Move execute() {
         Move selectBestMove;
 
         //1) træk fra bunke

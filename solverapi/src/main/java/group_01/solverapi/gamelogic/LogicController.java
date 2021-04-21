@@ -7,12 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Primary
 public class LogicController {
+    private StandardStrategy standardStrategy;
 
-    public LogicController() {
-
+    public LogicController(StandardStrategy standardStrategy) {
+        this.standardStrategy = standardStrategy;
     }
 
-    public void makeMove(Game game) {
+    public void makeMove() {
 
     }
 }
