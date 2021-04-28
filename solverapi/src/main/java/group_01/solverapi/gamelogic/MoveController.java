@@ -33,7 +33,7 @@ public class MoveController {
                 //TODO execute topstackmove
             }
             default: {
-                throw new ManipulateException("move had no known movetype");
+                throw new ManipulateException("move had unknown movetype");
             }
         }
     }

@@ -16,8 +16,10 @@ public class LogicController {
         this.moveController = moveController;
     }
 
-    public void makeMove() {
+    public Move makeMove() {
         Move move = standardStrategy.execute();
+        moveController.Execute(move);
 
+        return move;
     }
 }
