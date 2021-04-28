@@ -1,7 +1,6 @@
 package group_01.solverapi.model;
 
-public class Card implements ICard
-{
+public class Card extends Position implements ICard {
     private int cardValue;
     private Suit suit;
 
@@ -9,6 +8,25 @@ public class Card implements ICard
     public boolean isTurned() {
         return true;
     }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    @Override
+    public StackRow getStackRow() {
+        return stackRow;
+    }
+
+    @Override
+    public void setStackRow(StackRow stackRow) {
+        this.stackRow = stackRow;
+    }
+
     //endregion
 
     public enum Suit {

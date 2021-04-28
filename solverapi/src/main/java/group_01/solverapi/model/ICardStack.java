@@ -1,6 +1,7 @@
 package group_01.solverapi.model;
 
 import group_01.solverapi.exceptions.ManipulateException;
+import group_01.solverapi.exceptions.NotFoundException;
 
 import java.util.LinkedList;
 
@@ -9,7 +10,7 @@ public interface ICardStack {
     public void addTop(ICard newCard) throws ManipulateException;
     public void addTop(ICard[] newCards) throws ManipulateException;
     public int size();
-    public ICard peekTop();
+    public ICard peekTop() throws NotFoundException;
     public ICard takeTop() throws ManipulateException;
     public boolean isEmpty();
     public boolean containsCard(Card card);

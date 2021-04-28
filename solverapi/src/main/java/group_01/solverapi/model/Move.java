@@ -3,6 +3,8 @@ package group_01.solverapi.model;
 public class Move {
 
     private Card card;
+    private Position startPosition;
+    private Position targetPosition;
     private Card position;
     private MoveType type;
 
@@ -14,8 +16,20 @@ public class Move {
         this.card = card;
     }
 
-    public void setPosition(Card position) {
-        this.position = position;
+    public void setTargetPosition(int position, group_01.solverapi.model.Position.StackRow stackRow) {
+        this.targetPosition.pos = position;
+        this.targetPosition.stackRow = stackRow;
+    }
+
+    public void setStartPosition(int position, group_01.solverapi.model.Position.StackRow stackRow){
+        this.startPosition.pos = position;
+        this.startPosition.stackRow = stackRow;
+    }
+
+    public void setPosition(Card position){this.position = position;}
+
+    public MoveType getType() {
+        return type;
     }
 
     public Move(MoveType type) {
@@ -25,17 +39,27 @@ public class Move {
     public String toString() {
         switch (type) {
             case MOVE:
-                return "Ryk " + card.toString() + " til " + position.toString() + ".";
+                return String.format("Ryk %s til %s.", card.toString(), position.toString());
             case KING_MOVE:
-                return "Ryk " + card.toString() + " til en tom række.";
+                return String.format("Ryk %s til række %o.", card.toString(), targetPosition);
             case TOP_STACK_MOVE:
-                return "Ryk " + card.toString() + " til top stakken.";
+                return String.format("Ryk %s til tops stakken", card.toString());
             case DRAW:
-                return "Træk et kort fra bunke.";
+                return "Træk et kort fra bunken.";
             case TURN:
                 return "Vend et kort.";
             default:
-                return "Kan ikke finde på træk.";
+                return "Kan ikke finde et træk.";
+        }
+    }
+
+    private class Position {
+        private int pos;
+        private group_01.solverapi.model.Position.StackRow stackRow;
+
+        public Position(int pos, group_01.solverapi.model.Position.StackRow stackRow) {
+            this.pos = pos;
+            this.stackRow = stackRow;
         }
     }
 }

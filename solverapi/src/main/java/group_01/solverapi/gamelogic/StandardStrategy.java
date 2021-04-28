@@ -1,5 +1,6 @@
 package group_01.solverapi.gamelogic;
 
+import group_01.solverapi.exceptions.NotFoundException;
 import group_01.solverapi.model.*;
 import org.springframework.stereotype.Component;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -9,7 +10,7 @@ public class StandardStrategy {
 
     private Game game;
 
-     public StandardStrategy(Game game) {
+    public StandardStrategy(Game game) {
          this.game = game;
      }
 
@@ -62,30 +63,104 @@ public class StandardStrategy {
     }
 
     private Move faceDownCardFreeingMove() {
-        throw new NotImplementedException();
+        Move move = null;
+        try {
+            if (game.hasUnturnedBottomStack()) {
+                int stack = game.getUnturnedBottomStack();
+                move = new Move(Move.MoveType.TURN);
+
+                move.setStartPosition(stack, Position.StackRow.BOTTOM_STACKS);
+            }
+        } catch (NotFoundException e) {
+            System.out.println("hit exception at faceDownCardFreeingMove strategy");
+            e.printStackTrace();
+            move = null;
+        }
+        return move;
     }
 
     private Move kingToEmptyStack() {
         Move move = null;
+        try {
+            if (game.hasEmptyBottomStack()) {
+                if (game.hasFreeKing()) {
+                    Card king = game.getFreeKing();
+                    int stack = game.getEmptyBottomStack();
+                    move = new Move(Move.MoveType.KING_MOVE);
 
-        if (game.hasEmptyBottomStack()) {
-            if (game.getFreeKing()) {
-                //TODO make move
+                    move.setCard(king);
+                    move.setStartPosition(king.getPosition(), king.getStackRow());
+                    move.setTargetPosition(stack, Position.StackRow.BOTTOM_STACKS);
+                }
             }
+        } catch (NotFoundException e) {
+            System.out.println("hit exception at kingToEmptyStack strategy.");
+            e.printStackTrace();
+            move = null;
         }
         return move;
     }
 
     private Move setupFaceDownCardFreeingMove() {
-        throw new NotImplementedException();
+        Move move = null;
+        try {
+            //TODO implement strategy
+        } catch (NotFoundException e) {
+            System.out.println("hit exception at setupDownCardFreeingMove strategy");
+            e.printStackTrace();
+            move = null;
+        }
+        return move;
     }
 
     private Move freeMostFaceDownCards() {
-        throw new NotImplementedException();
+        Move move = null;
+        try {
+            //TODO implement strategy
+        } catch (NotFoundException e) {
+            System.out.println("hit exception at freeMostFaceDownCards strategy");
+            e.printStackTrace();
+            move = null;
+        }
+        return move;
     }
 
     private Move moveAceOrTwo() {
-        throw new NotImplementedException();
+        Move move = null;
+        try {
+            if (game.hasFreeAce()) {
+                Card ace = game.getFreeAce();
+                int stack = game.getEmptyTopStack();
+                move = new Move(Move.MoveType.MOVE);
+
+                move.setCard(ace);
+                move.setStartPosition(ace.getPosition(), ace.getStackRow());
+                move.setTargetPosition(stack, Position.StackRow.TOP_STACKS);
+            } else {
+                if (game.hasFreeCard(2)) {
+                    Card[] cards = game.getFreeCards(2);
+                    if (cards.length != 0) {
+                        for (Card card : cards) {
+                            if (game.isTopPlaceable(card)) {
+                                Card target = game.getTopCardPlaceable(card);
+                                move = new Move(Move.MoveType.MOVE);
+
+                                move.setCard(card);
+                                move.setStartPosition(card.getPosition(), card.getStackRow());
+                                move.setTargetPosition(target.getPosition(), target.getStackRow());
+                                move.setPosition(target);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (NotFoundException e) {
+            System.out.println("hit exception at moveAceOrTwo strategy");
+            e.printStackTrace();
+            move = null;
+        }
+        return move;
     }
 
 }

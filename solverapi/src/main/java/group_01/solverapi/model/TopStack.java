@@ -1,5 +1,6 @@
 package group_01.solverapi.model;
 
+import group_01.solverapi.exceptions.NotFoundException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import group_01.solverapi.exceptions.ManipulateException;
@@ -58,11 +59,31 @@ public class TopStack implements ICardStack {
 
     @Override
     public boolean containsCard(Card card) {
-        //TODO implement
+        for (Card card1 : cards) {
+            if (card1.equals(card)) {
+                return true;
+            }
+        }
         return false;
     }
 
     //endregion
 
+    public boolean containsCard(int cardValue) {
+        for (Card card : cards) {
+            if (card.equals(cardValue)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Card getCard(int cardValue) throws NotFoundException {
+        for (Card card : cards) {
+            if (card.equals(cardValue))
+                return card;
+        }
+        throw new NotFoundException(String.format("No card with value %d", cardValue));
+    }
 
 }

@@ -1,5 +1,6 @@
 package group_01.solverapi.model;
 
+import group_01.solverapi.exceptions.NotFoundException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import group_01.solverapi.exceptions.ManipulateException;
@@ -40,7 +41,9 @@ public class PlayStack implements ICardStack {
         return cards.size();
     }
 
-    public ICard peekTop() {
+    public ICard peekTop() throws NotFoundException {
+        if (cards.isEmpty())
+            throw new NotFoundException("Card stack is empty");
         return cards.getFirst();
     }
 

@@ -1,6 +1,7 @@
 package group_01.solverapi.model;
 
 import group_01.solverapi.exceptions.ManipulateException;
+import group_01.solverapi.exceptions.NotFoundException;
 
 import java.util.LinkedList;
 
@@ -42,7 +43,9 @@ public class BottomStack implements ICardStack {
         return cards.size();
     }
 
-    public ICard peekTop() {
+    public ICard peekTop() throws NotFoundException {
+        if (cards.isEmpty())
+            throw new NotFoundException("Card stack is empty");
         return cards.getFirst();
     }
 
@@ -96,5 +99,15 @@ public class BottomStack implements ICardStack {
 
     public int turnedCards() {
         return size() - unturnedCards();
+    }
+
+    public Card getCard(int cardValue) throws NotFoundException {
+        for (ICard card : this.cards) {
+            if (card instanceof  Card) {
+                if (((Card) card).equals(cardValue))
+                    return (Card) card;
+            }
+        }
+        throw new NotFoundException("No turned card with this value");
     }
 }

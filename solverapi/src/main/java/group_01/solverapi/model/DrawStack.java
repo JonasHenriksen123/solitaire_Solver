@@ -2,6 +2,7 @@ package group_01.solverapi.model;
 
 import com.sun.istack.internal.Nullable;
 import group_01.solverapi.exceptions.ManipulateException;
+import group_01.solverapi.exceptions.NotFoundException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.LinkedList;
@@ -41,7 +42,9 @@ public class DrawStack implements ICardStack {
         return cards.size();
     }
 
-    public ICard peekTop() {
+    public ICard peekTop() throws NotFoundException {
+        if (cards.isEmpty())
+            throw new NotFoundException("Card stack is empty");
         return cards.getFirst();
     }
 
