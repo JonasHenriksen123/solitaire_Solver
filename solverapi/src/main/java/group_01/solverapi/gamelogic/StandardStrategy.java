@@ -20,7 +20,7 @@ public class StandardStrategy {
         //1) træk fra bunke
         selectBestMove = playStackEmpty();
         if (selectBestMove != null) {
-            return new Move(Move.MoveType.DRAW);
+            return selectBestMove;
         }
 
         //2) flyt es/to til mulig placering
