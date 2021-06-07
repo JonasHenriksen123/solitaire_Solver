@@ -147,4 +147,20 @@ public class BottomStack implements ICardStack {
         return (Card[]) cards.toArray();
     }
 
+    public Card[] getTurnedCards() {
+        if (turnedCards() == 0)
+        {
+            return null;
+        }
+        LinkedList<Card> cards = new LinkedList<>();
+        for (ICard card : this.cards) {
+            if (card instanceof Card) {
+                cards.add((Card) card);
+            } else {
+                break;
+            }
+        }
+        return (Card[]) cards.toArray();
+    }
+
 }

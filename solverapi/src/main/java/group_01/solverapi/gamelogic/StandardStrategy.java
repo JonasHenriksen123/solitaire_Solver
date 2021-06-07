@@ -55,6 +55,7 @@ public class StandardStrategy {
         if (selectBestMove != null) {
             return selectBestMove;
         }
+
         return null;
     }
 
@@ -104,7 +105,14 @@ public class StandardStrategy {
     private Move setupFaceDownCardFreeingMove() {
         Move move = null;
         try {
-            //TODO implement strategy
+            if (game.hasTopPlaceableBottomCard()) {
+                Card[] cards = game.getTopPlaceableBottomCards();
+                if (cards != null && cards.length > 0){
+                    for (Card card : cards) {
+                        //TODO find a way to predict usefull moves
+                    }
+                }
+            }
         } catch (NotFoundException e) {
             System.out.println("hit exception at setupDownCardFreeingMove strategy");
             e.printStackTrace();

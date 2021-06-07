@@ -2,13 +2,10 @@ package group_01.solverapi.model;
 
 import group_01.solverapi.exceptions.InitializeException;
 import group_01.solverapi.exceptions.NotFoundException;
-import group_01.solverapi.picrecaccess.CardStateDTO;
 import group_01.solverapi.picrecaccess.ICardStateDTO;
 import org.springframework.context.annotation.Primary;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
 import java.util.LinkedList;
 
 @Component
@@ -57,11 +54,17 @@ public class Game {
             if (stack.containsCard(13))
                 return true;
         }
+
+        //TODO look in playstack
         return false;
     }
 
     public boolean playStackEmpty(){
         return playStack.isEmpty();
+    }
+
+    public int DrawCount() {
+        return playStack.size() + drawStack.size();
     }
 
     public Card getFreeKing() throws NotFoundException {
@@ -84,6 +87,8 @@ public class Game {
             }
             i++;
         }
+
+        //TODO look in playstack
         throw new NotFoundException("No free king found");
     }
 
@@ -134,16 +139,19 @@ public class Game {
                     return true;
             }
         }
+        if (!playStack.isEmpty() && ((Card) playStack.peekTop()).equals(1)) {
+            return true;
+        }
         return false;
     }
 
-    public Card getFreeAce() throws NotFoundException {
+    public Card getFreeAce() throws NotFoundException{
         int i = 0;
         for (BottomStack stack : bottomsStacks) {
             ICard card = stack.peekTop();
             if (card instanceof Card) {
                 if (((Card)card).equals(1)){
-                    Card card1 = (Card) card;
+                    Card card1 = ((Card) card).makeCopy();
                     card1.setPosition(i);
                     card1.setStackRow(Position.StackRow.BOTTOM_STACKS);
                     return card1;
@@ -151,6 +159,13 @@ public class Game {
             }
             i++;
         }
+        if (!playStack.isEmpty()){
+            Card card = ((Card) playStack.peekTop()).makeCopy();
+            card.setPosition(0);
+            card.setStackRow(Position.StackRow.PLAY_STACK);
+            return card;
+        }
+
         throw new NotFoundException("No free ace found");
     }
 
@@ -176,6 +191,8 @@ public class Game {
                 }
             }
         }
+
+        //TODO look in playstack
         return false;
     }
 
@@ -199,6 +216,8 @@ public class Game {
             }
             i++;
         }
+
+        //TODO look in playstack
 
         if (cards.isEmpty())
             throw new NotFoundException(String.format("No cards with value %o found", cardValue));
@@ -257,6 +276,7 @@ public class Game {
     public Card getMostFreeingMoveable() throws NotFoundException{
         int height = 0;
         Card card = null;
+        int i = 0;
         for (BottomStack stack : bottomsStacks) {
             if (stack.isTopTurned()) {
                 Card bottomcard = stack.getBottomTurnedCard();
@@ -266,11 +286,14 @@ public class Game {
                     }
                     Card card1 = (Card) stack1.peekTop();
                     if (card1.isPlaceable(bottomcard) && stack.unturnedCards() > height){
-                        card = bottomcard;
+                        card = bottomcard.makeCopy();
+                        card.setPosition(i);
+                        card.setStackRow(Position.StackRow.BOTTOM_STACKS);
                         height = stack.unturnedCards();
                     }
                 }
             }
+            i++;
         }
         if (card == null) {
             throw new NotFoundException("No placeable cards found");
@@ -290,6 +313,30 @@ public class Game {
             i++;
         }
         throw new NotFoundException("No placeable stack found for this card");
+    }
+
+    public boolean hasTopPlaceableBottomCard() {
+        for (BottomStack stack : bottomsStacks) {
+           Card card = stack.getBottomTurnedCard();
+           if (isTopPlaceable(card)) {
+               return true;
+           }
+        }
+        return false;
+    }
+
+    public Card[] getTopPlaceableBottomCards() {
+        LinkedList<Card> cards = new LinkedList<>();
+        for (BottomStack stack : bottomsStacks) {
+            Card card = stack.getBottomTurnedCard();
+            if (isTopPlaceable(card)) {
+                cards.add(card);
+            }
+        }
+        if (cards.isEmpty()) {
+            return null;
+        }
+        return (Card[]) cards.toArray();
     }
 
 }

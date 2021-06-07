@@ -1,5 +1,7 @@
 package group_01.solverapi.model;
 
+import group_01.solverapi.exceptions.BadInputException;
+
 public class Card extends Position implements ICard {
     private int cardValue;
     private Suit suit;
@@ -7,24 +9,6 @@ public class Card extends Position implements ICard {
     //region overrides
     public boolean isTurned() {
         return true;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
-    public int getPosition() {
-        return position;
-    }
-
-    @Override
-    public StackRow getStackRow() {
-        return stackRow;
-    }
-
-    @Override
-    public void setStackRow(StackRow stackRow) {
-        this.stackRow = stackRow;
     }
 
     //endregion
@@ -36,7 +20,7 @@ public class Card extends Position implements ICard {
         CLUB
     }
 
-    public Card(int cardValue, Suit suit) throws Exception {
+    public Card(int cardValue, Suit suit) {
         setCardValue(cardValue);
         this.suit = suit;
     }
@@ -68,9 +52,9 @@ public class Card extends Position implements ICard {
         this.suit = suit;
     }
 
-    public void setCardValue(int cardValue) throws Exception {
+    public void setCardValue(int cardValue) throws BadInputException {
         if(cardValue < 1 || cardValue > 13){
-            throw new Exception("value is not within acceptable practice");
+            throw new BadInputException("value is not within acceptable practice");
         } else{
             this.cardValue = cardValue;
         }
@@ -78,7 +62,7 @@ public class Card extends Position implements ICard {
 
     public int getCardValue() {return cardValue; }
 
-    public static Card toCard(String card) throws Exception {
+    public static Card toCard(String card) throws BadInputException {
         Suit suit;
         int cardValue = 0;
         switch (card.charAt(1)) {
@@ -99,7 +83,7 @@ public class Card extends Position implements ICard {
                 break;
             }
             default:
-                throw new Exception("Suit of card was unknown");
+                throw new BadInputException("Suit of card was unknown");
         }
 
         if ((int)card.charAt(0) > 1 && (int)card.charAt(0) < 11) {
@@ -123,13 +107,17 @@ public class Card extends Position implements ICard {
                     break;
                 }
                 default: {
-                    throw new Exception("card face value was unknown");
+                    throw new BadInputException("card face value was unknown");
                 }
             }
         }
 
         return new Card(cardValue, suit);
 
+    }
+
+    public Card makeCopy() {
+        return new Card(this.cardValue, this.suit);
     }
 
 }

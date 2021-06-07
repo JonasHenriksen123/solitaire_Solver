@@ -1,5 +1,6 @@
 package group_01.solverapi.control;
 
+import group_01.solverapi.exceptions.BadInputException;
 import group_01.solverapi.exceptions.InitializeException;
 import group_01.solverapi.gamelogic.LogicController;
 import group_01.solverapi.model.Game;
@@ -24,8 +25,13 @@ public class Controller {
 
     public Move InitializeGame(ICardStateDTO cardState) throws InitializeException {
         game.initializeModel(cardState);
-        //TODO get the first move
-        return null;
+
+        Move move = logicController.makeMove();
+        if (move == null) {
+            //this is really bad
+            throw new BadInputException("Unable to find move after initialization");
+        }
+        return move;
     }
 
     public void getCurrentGameState(ICardStateDTO cardState) {

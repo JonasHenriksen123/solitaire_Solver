@@ -39,7 +39,7 @@ public class ServiceRestController {
             cardState = objectMapper.readValue(json, ICardStateDTO.class);
         } catch (JsonProcessingException e) {
            logger.error("Fatal error when decoding input from client");
-           throw new BadInputException();
+           throw new BadInputException("Fatal error when decoding input from user");
         }
 
         Move move;

@@ -18,6 +18,11 @@ public class LogicController {
 
     public Move makeMove() {
         Move move = standardStrategy.execute();
+
+        if (move == null) {
+
+        }
+
         moveController.Execute(move);
 
         return move;

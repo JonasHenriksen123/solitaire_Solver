@@ -1,18 +1,27 @@
 package group_01.solverapi.model;
 
 public abstract class Position {
-    int position;
-    StackRow stackRow;
+    private int position;
+    private StackRow stackRow;
 
     public enum StackRow {
         TOP_STACKS,
-        BOTTOM_STACKS
+        BOTTOM_STACKS,
+        PLAY_STACK,
     }
 
-    public abstract void setPosition(int position);
-    public abstract int getPosition();
-    public abstract void setStackRow(StackRow stackRow);
-    public abstract StackRow getStackRow();
+    public void setPosition(int position) {
+        this.position = position;
+    }
+    public int getPosition() {
+        return this.position;
+    }
+    public void setStackRow(StackRow stackRow) {
+        this.stackRow = stackRow;
+    }
+    public StackRow getStackRow() {
+        return this.stackRow;
+    }
 
     @Override
     public String toString() {
