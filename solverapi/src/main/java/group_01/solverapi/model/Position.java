@@ -13,4 +13,9 @@ public abstract class Position {
     public abstract int getPosition();
     public abstract void setStackRow(StackRow stackRow);
     public abstract StackRow getStackRow();
+
+    @Override
+    public String toString() {
+        return String.format("Stack-index %s in %s", position, stackRow);
+    }
 }

@@ -116,7 +116,16 @@ public class StandardStrategy {
     private Move freeMostFaceDownCards() {
         Move move = null;
         try {
-            //TODO implement strategy
+           if (game.hasMoveableStack())
+           {
+               Card card = game.getMostFreeingMoveable();
+               int stack = game.getPlaceableStack(card);
+               move = new Move(Move.MoveType.MOVE);
+
+               move.setCard(card);
+               move.setStartPosition(card.getPosition(), card.getStackRow());
+               move.setTargetPosition(stack, Position.StackRow.BOTTOM_STACKS);
+           }
         } catch (NotFoundException e) {
             System.out.println("hit exception at freeMostFaceDownCards strategy");
             e.printStackTrace();

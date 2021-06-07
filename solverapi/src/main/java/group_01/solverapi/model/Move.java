@@ -41,7 +41,7 @@ public class Move {
             case MOVE:
                 return String.format("Ryk %s til %s.", card.toString(), position.toString());
             case KING_MOVE:
-                return String.format("Ryk %s til række %o.", card.toString(), targetPosition);
+                return String.format("Ryk %s til række %s.", card.toString(), targetPosition.toString());
             case TOP_STACK_MOVE:
                 return String.format("Ryk %s til tops stakken", card.toString());
             case DRAW:

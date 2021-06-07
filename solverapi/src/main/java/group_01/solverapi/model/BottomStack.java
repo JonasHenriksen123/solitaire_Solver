@@ -3,6 +3,7 @@ package group_01.solverapi.model;
 import group_01.solverapi.exceptions.ManipulateException;
 import group_01.solverapi.exceptions.NotFoundException;
 
+import java.awt.*;
 import java.util.LinkedList;
 
 public class BottomStack implements ICardStack {
@@ -110,4 +111,40 @@ public class BottomStack implements ICardStack {
         }
         throw new NotFoundException("No turned card with this value");
     }
+
+    public Card getBottomTurnedCard() throws NotFoundException {
+        Card bottomCard = null;
+        for (ICard card : this.cards) {
+            if (card.isTurned()) {
+                bottomCard = (Card) card;
+            }
+        }
+        if (bottomCard == null) {
+            throw new NotFoundException("No turned cards in this stack");
+        }
+        return bottomCard;
+    }
+
+    public Card[] takeUntillCard(Card card) throws ManipulateException {
+        int i = 1;
+        LinkedList<Card> cards = new LinkedList<Card>();
+        for (ICard card1 : this.cards) {
+            if (card1 instanceof UntCard) {
+                throw new ManipulateException("The stack did not contain the given card");
+            }
+            cards.add((Card) card1);
+            if (card1.equals(card)) {
+                break;
+            }
+            i++;
+        }
+
+        while (i > 0) {
+            this.cards.removeFirst();
+            i--;
+        }
+
+        return (Card[]) cards.toArray();
+    }
+
 }

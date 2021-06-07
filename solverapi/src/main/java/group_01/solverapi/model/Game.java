@@ -235,4 +235,61 @@ public class Game {
         throw new NotFoundException("No placeable top position found");
     }
 
+    public boolean hasMoveableStack() {
+        for (BottomStack stack : bottomsStacks) {
+            if (stack.isTopTurned()) {
+                Card bottomCard = stack.getBottomTurnedCard();
+                for (BottomStack stack1 : bottomsStacks) {
+                    if (stack.equals(stack1) || stack1.isEmpty() || !stack1.isTopTurned())
+                    {
+                        continue;
+                    }
+                    Card card = (Card) stack1.peekTop();
+                    if (card.isPlaceable(bottomCard)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public Card getMostFreeingMoveable() throws NotFoundException{
+        int height = 0;
+        Card card = null;
+        for (BottomStack stack : bottomsStacks) {
+            if (stack.isTopTurned()) {
+                Card bottomcard = stack.getBottomTurnedCard();
+                for (BottomStack stack1 : bottomsStacks) {
+                    if (stack.equals(stack1) || stack1.isEmpty() || !stack1.isTopTurned()){
+                        continue;
+                    }
+                    Card card1 = (Card) stack1.peekTop();
+                    if (card1.isPlaceable(bottomcard) && stack.unturnedCards() > height){
+                        card = bottomcard;
+                        height = stack.unturnedCards();
+                    }
+                }
+            }
+        }
+        if (card == null) {
+            throw new NotFoundException("No placeable cards found");
+        }
+        return card;
+    }
+
+    public int getPlaceableStack(Card card) throws NotFoundException{
+        int i = 0;
+        for (BottomStack stack : bottomsStacks) {
+            if (stack.isTopTurned()){
+                Card card1 = (Card) stack.peekTop();
+                if (card1.isPlaceable(card)) {
+                    return i;
+                }
+            }
+            i++;
+        }
+        throw new NotFoundException("No placeable stack found for this card");
+    }
+
 }
