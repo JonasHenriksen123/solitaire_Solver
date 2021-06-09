@@ -1,19 +1,15 @@
 package group_01.solverapi;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import group_01.solverapi.control.Controller;
 import group_01.solverapi.exceptions.BadInputException;
 import group_01.solverapi.exceptions.InitializeException;
 import group_01.solverapi.model.Move;
-import group_01.solverapi.picrecaccess.CardStateDTO;
 import group_01.solverapi.picrecaccess.ICardStateDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

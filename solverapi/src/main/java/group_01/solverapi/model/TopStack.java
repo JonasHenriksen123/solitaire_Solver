@@ -1,10 +1,7 @@
 package group_01.solverapi.model;
 
 import group_01.solverapi.exceptions.NotFoundException;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import group_01.solverapi.exceptions.ManipulateException;
-import org.springframework.lang.Nullable;
 
 import java.util.LinkedList;
 

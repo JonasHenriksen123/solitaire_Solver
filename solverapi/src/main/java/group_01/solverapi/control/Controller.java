@@ -6,13 +6,8 @@ import group_01.solverapi.gamelogic.LogicController;
 import group_01.solverapi.gamelogic.ValidateController;
 import group_01.solverapi.model.Game;
 import group_01.solverapi.model.Move;
-import group_01.solverapi.picrecaccess.CardStateDTO;
-import group_01.solverapi.picrecaccess.ICardPlacementDAO;
 import group_01.solverapi.picrecaccess.ICardStateDTO;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 
 @Component
 public class Controller {
