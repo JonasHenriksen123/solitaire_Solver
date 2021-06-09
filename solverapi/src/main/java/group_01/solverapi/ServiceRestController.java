@@ -32,7 +32,7 @@ public class ServiceRestController {
 
     @RequestMapping("initialize")
     @PostMapping
-    public ResponseEntity Initial(String json)
+    public ResponseEntity initial(String json)
     {
         ICardStateDTO cardState;
         try {
@@ -48,6 +48,35 @@ public class ServiceRestController {
         } catch (InitializeException e) {
             logger.error("Fatal error when initializing the game model");
             throw new InitializeException();
+        }
+
+        ResponseEntity.BodyBuilder bodyBuilder = ResponseEntity.accepted();
+        bodyBuilder.body(move);
+        return bodyBuilder.build();
+    }
+
+    @RequestMapping("makemove")
+    @GetMapping
+    public ResponseEntity makeMove(String json) {
+        ICardStateDTO cardState;
+        try {
+            cardState = objectMapper.readValue(json, ICardStateDTO.class);
+        } catch (JsonProcessingException e) {
+            logger.error("fatal error when decoding input from client");
+            throw new BadInputException("Fatal error when decoding input from user");
+        }
+
+        Move move;
+        try {
+            move = controller.makeMove(cardState);
+        } catch (BadInputException e) {
+            logger.error(String.format("fatal error when finding move: %s", e.getMessage()));
+            throw  new BadInputException(String.format("fatal error when finding move: %s", e.getMessage()));
+        }
+
+        if (move == null) {
+            //the game was lost bad lucks
+            //TODO tell the user we lost
         }
 
         ResponseEntity.BodyBuilder bodyBuilder = ResponseEntity.accepted();

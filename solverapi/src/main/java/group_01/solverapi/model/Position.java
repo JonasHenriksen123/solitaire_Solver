@@ -5,9 +5,20 @@ public abstract class Position {
     private StackRow stackRow;
 
     public enum StackRow {
-        TOP_STACKS,
-        BOTTOM_STACKS,
-        PLAY_STACK,
+        TOP_STACKS("Top_Stacks"),
+        BOTTOM_STACKS("Bottom_Stacks"),
+        PLAY_STACK("Play_Stack");
+
+        private String name;
+
+        StackRow(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+           return name;
+        }
     }
 
     public void setPosition(int position) {

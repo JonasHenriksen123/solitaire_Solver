@@ -15,7 +15,7 @@ public class DoSomethingStrategy {
         this.game = game;
     }
 
-    public Move executeMove() {
+    public Move execute() {
         Move bestMove;
 
         bestMove = drawFromPile();
