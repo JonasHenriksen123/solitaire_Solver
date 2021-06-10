@@ -1,0 +1,63 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    background: #191919;
+}
+
+#video{
+    bottom: 150px;
+    display: block;
+    margin: 0 auto;
+    min-width: 60%;
+    min-height: 60%;
+    z-index: -100;
+    background-size: cover;
+    overflow: hidden;
+    border-radius: 5%;
+
+}
+
+#getTEST{
+    font-family: Cambria;
+    font-size: 20px;
+    text-transform: uppercase;
+    vertical-align: center;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    height: 50px;
+    width: 10%;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+
+}
+
+#getTEST:hover{
+    background: #2ecc71;
+    border: #2ecc71;
+}
+
+ol{
+    list-style-type: circle;
+    background-color: #191919;
+    padding: 15px;
+    vertical-align: center;
+    text-align: center;
+    list-style-position: inside;
+
+}
+
+ol li{
+    font-family: Cambria;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: white;
+    margin-bottom: 15px;
+}
+
+
