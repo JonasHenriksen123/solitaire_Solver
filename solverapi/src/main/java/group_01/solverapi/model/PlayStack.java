@@ -58,8 +58,14 @@ public class PlayStack implements ICardStack {
 
     @Override
     public boolean containsCard(Card card) {
-        throw new NotImplementedException();
+        return this.cards.getFirst().equals(card);
     }
+
+    @Override
+    public boolean containsCard(int value) {
+        return this.cards.getFirst().equals(value);
+    }
+
 
     //endregion
 

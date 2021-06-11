@@ -55,7 +55,10 @@ public class Game {
                 return true;
         }
 
-        //TODO look in playstack
+        if (playStack.containsCard(13)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -88,7 +91,12 @@ public class Game {
             i++;
         }
 
-        //TODO look in playstack
+        if (playStack.containsCard(13)) {
+            Card king = (Card) playStack.peekTop();
+            king.setStackRow(Position.StackRow.PLAY_STACK);
+            return king;
+        }
+
         throw new NotFoundException("No free king found");
     }
 

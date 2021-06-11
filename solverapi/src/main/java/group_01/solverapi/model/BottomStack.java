@@ -71,8 +71,7 @@ public class BottomStack implements ICardStack {
         return false;
     }
 
-    //endregion
-
+    @Override
     public boolean containsCard(int cardValue){
         for(ICard card1: this.cards){
             if(card1 instanceof Card){
@@ -82,6 +81,9 @@ public class BottomStack implements ICardStack {
         }
         return false;
     }
+    //endregion
+
+
 
     public boolean isTopTurned() {
         return cards.getFirst().isTurned();

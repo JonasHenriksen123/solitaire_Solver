@@ -63,5 +63,8 @@ public class DrawStack implements ICardStack {
         throw new NotImplementedException();
     }
 
+    @Override
+    public boolean containsCard(int value){throw new NotImplementedException();}
+
     //endregion
 }
