@@ -11,7 +11,7 @@ public class CardStateDTO implements ICardStateDTO {
     private Card[][] bottomStacks;
 
     public CardStateDTO(String input) {
-        //TODO init the stacks
+       initCardState(input);
     }
 
     @Override
@@ -28,17 +28,17 @@ public class CardStateDTO implements ICardStateDTO {
             case TOP_STACKS: {
                 int p = pos.getPosition();
                 if (p > 3 || p < 0)
-                    throw new BadInputException(String.format("Trying to get stack %s from top stacks", p));
+                    throw new BadInputException(String.format("Trying to get stack %s from top stacks failed", p));
                 return topStacks[p];
             }
             case BOTTOM_STACKS: {
                 int p = pos.getPosition();
                 if (p > 6 || p < 0)
-                    throw new BadInputException(String.format("Trying to get stack %s from bottom stacks", p));
+                    throw new BadInputException(String.format("Trying to get stack %s from bottom stacks failed", p));
                 return bottomStacks[p];
             }
             default: {
-                throw new BadInputException(String.format("Trying to get unknown stack: %s", pos.getStackRow().toString()));
+                throw new BadInputException(String.format("Trying to get unknown stack: %s failed", pos.getStackRow().toString()));
             }
         }
     }

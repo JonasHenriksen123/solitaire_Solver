@@ -12,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.InputStream;
 
 @RestController
 @Configuration
@@ -28,19 +31,19 @@ public class ServiceRestController {
 
     @RequestMapping("initialize")
     @PostMapping
-    public ResponseEntity initial(String json)
+    public ResponseEntity initial(HttpServletRequest request)
     {
-        ICardStateDTO cardState;
+       InputStream stream = null;
         try {
-            cardState = objectMapper.readValue(json, ICardStateDTO.class);
-        } catch (JsonProcessingException e) {
-           logger.error("Fatal error when decoding input from client");
-           throw new BadInputException("Fatal error when decoding input from user");
+           stream = request.getInputStream();
+        } catch (IOException e) {
+           logger.error("Fatal error when reading request content");
+           throw  new InitializeException();
         }
 
         Move move;
         try {
-            move = controller.InitializeGame(cardState);
+            move = controller.InitializeGame(stream);
         } catch (InitializeException e) {
             logger.error("Fatal error when initializing the game model");
             throw new InitializeException();
