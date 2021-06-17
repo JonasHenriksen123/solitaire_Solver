@@ -10,6 +10,16 @@ html, body{
     margin: 0 auto;
     min-width: 60%;
     min-height: 60%;
+    z-index: -1;
+    background-size: cover;
+    overflow: hidden;
+}
+#canvas{
+    bottom: 150px;
+    display: none;
+    margin: 0 auto;
+    min-width: 60%;
+    min-height: 60%;
     z-index: -100;
     background-size: cover;
     overflow: hidden;
@@ -59,7 +69,7 @@ ol li{
 }
 
 nav ol{
-    height: 300px;
+    height: 150px;
     overflow: hidden;
     overflow-y: scroll;
 }
