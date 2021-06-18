@@ -15,19 +15,26 @@ function userAction() {
     var video = document.getElementById("video");
 
     canvas.getContext('2d').drawImage(video,0,0);
-    var imageBase64 = canvas.toDataURL("image/jpeg")
+    var imageBase64 = canvas.toDataURL("image/jpeg").split(';base64,')[1]
     console.log(imageBase64)
+    //imageBase64 = imageBase64.substring(21)
+    //imageBase64[0] = 'b'
+    //imageBase64[1] = '\''
+    const data_dict = {
+        "image": imageBase64
+    }
 
     fetch("http://localhost:8000/", {
         method: "POST",
-        headers: {
-        //    'Accept': 'application/json, text/plain, */*',
-            "Content-Type": "application/json"
-        },
-        //body: {'image': imageBase64},
-        body: {"image": imageBase64}
+        //headers: {
+        //    "Content-Type": "application/json"
+        //},
+        body: JSON.stringify(data_dict),
+        mode: "no-cors"
     }).then(function (response) {
-            return response.json();
+        alert(response.json())
+
+        return response
     })
     //    .then(function (data) {
     //})
