@@ -12,9 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.nio.charset.Charset;
 
 @RestController
 @Configuration
@@ -89,27 +91,10 @@ public class ServiceRestController {
     public ResponseEntity<String> test() {
         InputStream stream = null;
         try {
-            File file = new File("C:\\Users\\jonas\\Documents\\GitHub\\solitaire_Solver\\solverapi\\src\\main\\java\\group_01\\solverapi\\res\\testData.txt");
+            File file = new File("C:\\Users\\jonas\\Documents\\GitHub\\solitaire_Solver\\solverapi\\src\\main\\java\\group_01\\solverapi\\res\\dta.txt");
             stream = new FileInputStream(file);
         } catch (IOException e) {
             System.out.println("unable to open file");
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        String resp = null;
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-
-            StringBuilder strBuild = new StringBuilder();
-            String responseLine;
-
-            while ((responseLine = reader.readLine()) != null) {
-                strBuild.append(responseLine.trim());
-            }
-
-            resp = strBuild.toString();
-        } catch (IOException e) {
-            System.out.println("unable to read file");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -124,9 +109,6 @@ public class ServiceRestController {
             e.printStackTrace();
         }
 
-
         return new ResponseEntity<>("good response", HttpStatus.ACCEPTED);
     }
-
-
 }

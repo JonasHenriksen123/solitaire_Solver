@@ -80,7 +80,7 @@ public class CardStateDTO implements ICardStateDTO {
 
        for (int i = 0; i < 4; i++) {
            JSONObject card = (JSONObject) cards.get(i);
-           if (card.isEmpty()) {
+           if (card == null || card.isEmpty()) {
                stacks[i] = null;
                continue;
            }

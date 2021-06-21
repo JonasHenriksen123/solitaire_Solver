@@ -211,7 +211,12 @@ public class Game {
             }
         }
 
-        //TODO look in playstack
+        ICard card =  playStack.peekTop();
+        if (card instanceof Card) {
+            if (((Card)card).equals(cardValue)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -236,7 +241,16 @@ public class Game {
             i++;
         }
 
-        //TODO look in playstack
+        if(!playStack.isEmpty()) {
+            ICard card = playStack.peekTop();
+            if (card instanceof Card) {
+                if (((Card)card).equals(cardValue)) {
+                    Card card1 = (Card) card;
+                    card1.setStackRow(Position.StackRow.PLAY_STACK);
+                    cards.add(card1);
+                }
+            }
+        }
 
         if (cards.isEmpty())
             throw new NotFoundException(String.format("No cards with value %o found", cardValue));
