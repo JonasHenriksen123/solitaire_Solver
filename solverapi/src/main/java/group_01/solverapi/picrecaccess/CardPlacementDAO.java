@@ -10,6 +10,7 @@ import sun.net.www.http.HttpClient;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 
@@ -17,25 +18,24 @@ import java.nio.charset.StandardCharsets;
 public class CardPlacementDAO {
 
     public CardStateDTO getCurrentGameState(InputStream stream) throws IOException, ParseException {
-        String uri = "http://localhost:8000";
+        String uri = "http://localhost:8000/";
         URL url = new URL(uri);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         String method = "POST";
+        con.setRequestProperty("Content-Type", "application/json");
         con.setRequestMethod(method);
-        con.setRequestProperty("content-type", "image/jpeg: utf-8");
-        con.setRequestProperty("Accept", "application/json");
         con.setDoOutput(true);
 
         try (OutputStream os = con.getOutputStream()) {
-            byte[] input = StreamUtils.copyToByteArray(stream);
-            os.write(input, 0, input.length);
+            StreamUtils.copy(stream, os);
+            os.flush();
         }
 
         con.getResponseCode();
 
         String response = null;
         try (BufferedReader br = new BufferedReader(
-                new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
+                new InputStreamReader(con.getInputStream(), Charset.defaultCharset()))) {
 
             StringBuilder strBuild = new StringBuilder();
             String responseLine;

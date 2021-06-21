@@ -3,12 +3,14 @@ package group_01.webapp.services;
 import group_01.webapp.ServiceAPI.ISolitaireService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
+import org.springframework.util.StringUtils;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Stream;
 
@@ -20,15 +22,17 @@ public class SolitaireService implements ISolitaireService {
         URL url = new URL("http://localhost:8081/solver");
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("content-type", "image/jpeg: utf-8");
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("content-type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
         connection.setDoOutput(true);
 
+
         try (OutputStream os = connection.getOutputStream()) {
-            byte[] bytes = StreamUtils.copyToByteArray(stream);
-            os.write(bytes);
+            StreamUtils.copy(stream, os);
+            os.flush();
         }
+
 
         connection.getResponseCode();
 

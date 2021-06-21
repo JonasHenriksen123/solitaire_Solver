@@ -29,7 +29,7 @@ public class ServiceRestController {
         this.logger = LoggerFactory.getLogger(ServiceRestController.class);
     }
 
-    @RequestMapping("initialize")
+    @RequestMapping("solver")
     @PostMapping
     public ResponseEntity initial(HttpServletRequest request)
     {
