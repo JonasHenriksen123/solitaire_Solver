@@ -1,19 +1,12 @@
 package group_01.solverapi.control;
 
-import com.sun.xml.messaging.saaj.util.ByteInputStream;
-import group_01.solverapi.exceptions.BadInputException;
-import group_01.solverapi.exceptions.InitializeException;
-import group_01.solverapi.gamelogic.LogicController;
-import group_01.solverapi.gamelogic.ValidateController;
-import group_01.solverapi.model.Game;
-import group_01.solverapi.model.Move;
-import group_01.solverapi.picrecaccess.CardPlacementDAO;
-import group_01.solverapi.picrecaccess.CardStateDTO;
-import group_01.solverapi.picrecaccess.ICardStateDTO;
+import group_01.solverapi.exceptions.*;
+import group_01.solverapi.gamelogic.*;
+import group_01.solverapi.model.*;
+import group_01.solverapi.picrecaccess.*;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 @Component
 public class Controller {
@@ -35,6 +28,8 @@ public class Controller {
             cardState = cardPlacementDAO.getCurrentGameState(stream);
         } catch (IOException e) {
             throw new InitializeException();
+        } catch (ParseException e) {
+            throw new BadInputException("Unable to parse game state with JSON-Simple");
         }
 
         validateController.validateinit(cardState);
@@ -54,6 +49,8 @@ public class Controller {
             cardState = cardPlacementDAO.getCurrentGameState(stream);
         } catch (IOException e) {
             throw new BadInputException("Unable to parse game state");
+        } catch (ParseException e) {
+            throw new BadInputException("Unable to parse game state with JSON-Simple");
         }
         validateController.validate(cardState);
         game.updateModel(cardState);

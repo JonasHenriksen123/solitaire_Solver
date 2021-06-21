@@ -65,7 +65,42 @@ public class Card extends Position implements ICard {
     public static Card toCard(String card) throws BadInputException {
         Suit suit;
         int cardValue = 0;
-        switch (card.charAt(1)) {
+        int suitPlacement = 0;
+
+        if (card.length() == 3) {
+            cardValue = 10;
+            suitPlacement = 2;
+        } else {
+
+            if (card.charAt(0) > '1' && card.charAt(0) <= '9') {
+                cardValue = card.charAt(0) - 48;
+            } else {
+                switch (card.charAt(0)) {
+                    case 'A': {
+                        cardValue = 1;
+                        break;
+                    }
+                    case 'K': {
+                        cardValue = 13;
+                        break;
+                    }
+                    case 'Q': {
+                        cardValue = 12;
+                        break;
+                    }
+                    case 'J': {
+                        cardValue = 11;
+                        break;
+                    }
+                    default: {
+                        throw new BadInputException("card face value was unknown");
+                    }
+                }
+            }
+            suitPlacement = 1;
+        }
+
+        switch (card.charAt(suitPlacement)) {
             case 'h': {
                 suit = Suit.HEARTS;
                 break;
@@ -86,31 +121,6 @@ public class Card extends Position implements ICard {
                 throw new BadInputException("Suit of card was unknown");
         }
 
-        if ((int)card.charAt(0) > 1 && (int)card.charAt(0) < 11) {
-            cardValue = (int)card.charAt(0);
-        } else {
-            switch (card.charAt(0)) {
-                case 'A': {
-                    cardValue = 1;
-                    break;
-                }
-                case 'K': {
-                    cardValue = 13;
-                    break;
-                }
-                case 'Q': {
-                    cardValue = 12;
-                    break;
-                }
-                case 'J': {
-                    cardValue = 11;
-                    break;
-                }
-                default: {
-                    throw new BadInputException("card face value was unknown");
-                }
-            }
-        }
 
         return new Card(cardValue, suit);
 

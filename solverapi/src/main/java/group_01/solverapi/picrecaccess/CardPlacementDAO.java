@@ -1,6 +1,7 @@
 package group_01.solverapi.picrecaccess;
 
 import com.sun.xml.messaging.saaj.util.ByteInputStream;
+import org.json.simple.parser.ParseException;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
@@ -15,8 +16,8 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class CardPlacementDAO {
 
-    public CardStateDTO getCurrentGameState(InputStream stream) throws IOException {
-        String uri = "localhost:8000";
+    public CardStateDTO getCurrentGameState(InputStream stream) throws IOException, ParseException {
+        String uri = "http://localhost:8000";
         URL url = new URL(uri);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         String method = "POST";
@@ -29,6 +30,8 @@ public class CardPlacementDAO {
             byte[] input = StreamUtils.copyToByteArray(stream);
             os.write(input, 0, input.length);
         }
+
+        con.getResponseCode();
 
         String response = null;
         try (BufferedReader br = new BufferedReader(

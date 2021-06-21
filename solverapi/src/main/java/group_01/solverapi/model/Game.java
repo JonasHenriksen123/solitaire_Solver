@@ -25,7 +25,7 @@ public class Game {
         }
         bottomsStacks = new BottomStack[7];
         for (int i = 0; i < 7; i++) {
-            bottomsStacks[i] = new BottomStack(i+1);
+            bottomsStacks[i] = new BottomStack(i);
         }
     }
 
@@ -34,7 +34,18 @@ public class Game {
     }
 
     public void initializeModel(ICardStateDTO cardState) throws InitializeException {
-        //TODO update model by cardstate object
+        PosHelper pos = new PosHelper(Position.StackRow.BOTTOM_STACKS);
+        for (int i = 0; i < 7; i++) {
+            pos.setPosition(i);
+            Card[] cards = cardState.getCardsFromStack(pos);
+            bottomsStacks[i].addTop(cards[0]);
+        }
+
+        pos.setStackRow(Position.StackRow.PLAY_STACK);
+        Card[] card = cardState.getCardsFromStack(pos);
+        if (card.length > 0) {
+            playStack.addTop(card);
+        }
     }
 
     public boolean hasEmptyBottomStack() {
@@ -347,4 +358,9 @@ public class Game {
         return (Card[]) cards.toArray();
     }
 
+    private class PosHelper extends Position {
+        public PosHelper(StackRow stackRow) {
+            this.setStackRow(stackRow);
+        }
+    }
 }
