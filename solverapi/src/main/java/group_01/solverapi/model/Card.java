@@ -1,7 +1,8 @@
 package group_01.solverapi.model;
 
-public class Card implements ICard
-{
+import group_01.solverapi.exceptions.BadInputException;
+
+public class Card extends Position implements ICard {
     private int cardValue;
     private Suit suit;
 
@@ -9,6 +10,7 @@ public class Card implements ICard
     public boolean isTurned() {
         return true;
     }
+
     //endregion
 
     public enum Suit {
@@ -18,7 +20,7 @@ public class Card implements ICard
         CLUB
     }
 
-    public Card(int cardValue, Suit suit) throws Exception {
+    public Card(int cardValue, Suit suit) {
         setCardValue(cardValue);
         this.suit = suit;
     }
@@ -33,6 +35,13 @@ public class Card implements ICard
             return this.suit == Suit.HEARTS || this.suit == Suit.DIAMOND;
         }
     }
+    public boolean equals(Card card) {
+        return this.suit == card.suit && this.cardValue == card.cardValue;
+    }
+
+    public boolean equals(int cardValue) {
+        return this.cardValue == cardValue;
+    }
 
 
     public Suit getSuit() {
@@ -43,9 +52,9 @@ public class Card implements ICard
         this.suit = suit;
     }
 
-    public void setCardValue(int cardValue) throws Exception {
+    public void setCardValue(int cardValue) throws BadInputException {
         if(cardValue < 1 || cardValue > 13){
-            throw new Exception("value is not within acceptable practice");
+            throw new BadInputException("value is not within acceptable practice");
         } else{
             this.cardValue = cardValue;
         }
@@ -53,10 +62,45 @@ public class Card implements ICard
 
     public int getCardValue() {return cardValue; }
 
-    public static Card toCard(String card) throws Exception {
+    public static Card toCard(String card) throws BadInputException {
         Suit suit;
         int cardValue = 0;
-        switch (card.charAt(1)) {
+        int suitPlacement = 0;
+
+        if (card.length() == 3) {
+            cardValue = 10;
+            suitPlacement = 2;
+        } else {
+
+            if (card.charAt(0) > '1' && card.charAt(0) <= '9') {
+                cardValue = card.charAt(0) - 48;
+            } else {
+                switch (card.charAt(0)) {
+                    case 'A': {
+                        cardValue = 1;
+                        break;
+                    }
+                    case 'K': {
+                        cardValue = 13;
+                        break;
+                    }
+                    case 'Q': {
+                        cardValue = 12;
+                        break;
+                    }
+                    case 'J': {
+                        cardValue = 11;
+                        break;
+                    }
+                    default: {
+                        throw new BadInputException("card face value was unknown");
+                    }
+                }
+            }
+            suitPlacement = 1;
+        }
+
+        switch (card.charAt(suitPlacement)) {
             case 'h': {
                 suit = Suit.HEARTS;
                 break;
@@ -74,37 +118,16 @@ public class Card implements ICard
                 break;
             }
             default:
-                throw new Exception("Suit of card was unknown");
+                throw new BadInputException("Suit of card was unknown");
         }
 
-        if ((int)card.charAt(0) > 1 && (int)card.charAt(0) < 11) {
-            cardValue = (int)card.charAt(0);
-        } else {
-            switch (card.charAt(0)) {
-                case 'A': {
-                    cardValue = 1;
-                    break;
-                }
-                case 'K': {
-                    cardValue = 13;
-                    break;
-                }
-                case 'Q': {
-                    cardValue = 12;
-                    break;
-                }
-                case 'J': {
-                    cardValue = 11;
-                    break;
-                }
-                default: {
-                    throw new Exception("card face value was unknown");
-                }
-            }
-        }
 
         return new Card(cardValue, suit);
 
+    }
+
+    public Card makeCopy() {
+        return new Card(this.cardValue, this.suit);
     }
 
 }

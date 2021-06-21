@@ -1,33 +1,64 @@
 package group_01.solverapi.control;
 
-import group_01.solverapi.gamelogic.LogicController;
-import group_01.solverapi.model.Game;
-import group_01.solverapi.picrecaccess.CardStateDTO;
-import group_01.solverapi.picrecaccess.ICardPlacementDAO;
-import org.springframework.context.annotation.Configuration;
+import group_01.solverapi.exceptions.*;
+import group_01.solverapi.gamelogic.*;
+import group_01.solverapi.model.*;
+import group_01.solverapi.picrecaccess.*;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
+import java.io.*;
 
 @Component
 public class Controller {
     private Game game;
     private LogicController logicController;
-    private ICardPlacementDAO cardPlacementDAO;
+    private ValidateController validateController;
+    private CardPlacementDAO cardPlacementDAO;
 
-    public Controller(ICardPlacementDAO cardPlacementDAO, Game game, LogicController logicController) {
+    public Controller(Game game, LogicController logicController, ValidateController validateController, CardPlacementDAO cardPlacementDAO) {
         this.game = game;
         this.logicController = logicController;
+        this.validateController = validateController;
         this.cardPlacementDAO = cardPlacementDAO;
     }
 
-    public void InitializeGame() throws Exception{
-        CardStateDTO cardState = cardPlacementDAO.getInitialGameState();
+    public Move InitializeGame(InputStream stream) throws InitializeException {
+        CardStateDTO cardState = null;
+        try {
+            cardState = cardPlacementDAO.getCurrentGameState(stream);
+        } catch (IOException e) {
+            throw new InitializeException();
+        } catch (ParseException e) {
+            throw new BadInputException("Unable to parse game state with JSON-Simple");
+        }
+
+        validateController.validateinit(cardState);
         game.initializeModel(cardState);
+
+        Move move = logicController.makeMove();
+        if (move == null) {
+            //this is real bad
+            throw new BadInputException("Unable to find move after initialization");
+        }
+        return move;
     }
 
-    public void getCurrentGameState() throws Exception {
-        CardStateDTO cardState = cardPlacementDAO.getCurrentGameState();
+    public Move makeMove(InputStream stream) throws BadInputException {
+        CardStateDTO cardState = null;
+        try {
+            cardState = cardPlacementDAO.getCurrentGameState(stream);
+        } catch (IOException e) {
+            throw new BadInputException("Unable to parse game state");
+        } catch (ParseException e) {
+            throw new BadInputException("Unable to parse game state with JSON-Simple");
+        }
+        validateController.validate(cardState);
+        game.updateModel(cardState);
+
+        return logicController.makeMove();
+    }
+
+    public void getCurrentGameState(ICardStateDTO cardState) {
         game.updateModel(cardState);
     }
 }
