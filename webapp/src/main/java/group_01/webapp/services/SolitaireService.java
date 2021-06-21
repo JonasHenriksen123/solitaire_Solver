@@ -17,7 +17,7 @@ public class SolitaireService implements ISolitaireService {
 
     @Override
     public void Solve(InputStream stream) throws IOException {
-        URL url = new URL("localhost:8081/solver");
+        URL url = new URL("http://localhost:8081/solver");
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -30,7 +30,7 @@ public class SolitaireService implements ISolitaireService {
             os.write(bytes);
         }
 
-        connection.connect();
+        connection.getResponseCode();
 
         String response = null;
         try (BufferedReader br = new BufferedReader(

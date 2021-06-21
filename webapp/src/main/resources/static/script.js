@@ -24,15 +24,17 @@ function userAction() {
         "image": imageBase64
     }
 
-    fetch("http://localhost:8000/", {
+    fetch("http://localhost:8082/solve", {
         method: "POST",
         //headers: {
         //    "Content-Type": "application/json"
         //},
         body: JSON.stringify(data_dict),
+        //slet måske nedenstående
         mode: "no-cors"
     }).then(function (response) {
-        alert(response.json())
+        //alert(response.json())
+        alert(response.ok)
 
         return response
     })
@@ -53,6 +55,13 @@ function userAction() {
     //    .then(function (res){return res.json()})
     //    .then(function (data){alert(JSON.stringify(data))})
     //    .then(data => console.log(data))
+    //var list = document.getElementById("ollist");
+    //var jsondata = 1;
+    //var jsondata1 = 2;
+    //Kan også være man bare kan lave hele string'en i controlleren, og så bare sætte den ind
+
+    //list.innerHTML+="<li>Ryk" + jsondata + "til" + jsondata1 + "</li>";
+
 
 
 }

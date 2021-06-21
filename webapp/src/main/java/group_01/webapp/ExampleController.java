@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.handler.ExceptionHandlingWebHandler;
@@ -25,16 +26,15 @@ public class ExampleController {
         this.solitaireService = solitaireService;
     }
 
-    @RequestMapping("/solve")
-    @GetMapping
-    public ResponseEntity Get(HttpServletRequest request) {
-        InputStream stream = null;
+    @RequestMapping("solve")
+    @PostMapping
+    public ResponseEntity POST(HttpServletRequest request) {
+        InputStream stream;
         try {
             stream = request.getInputStream();
         } catch (IOException e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity(HttpStatus.ACCEPTED);
 
         try {
             solitaireService.Solve(stream);
@@ -43,6 +43,8 @@ public class ExampleController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return new ResponseEntity(HttpStatus.ACCEPTED);
 
     }
 }
