@@ -11,8 +11,7 @@ public class DrawStack implements ICardStack {
     private LinkedList<UntCard> cards;
 
     public DrawStack() {
-        //set this for number of cards to be in draw pile at start
-        int startCount = 20;
+        int startCount = 24;
         cards = new LinkedList<UntCard>();
         for (int i = 0; i < startCount; i++) {
             cards.addFirst(new UntCard());
@@ -66,5 +65,35 @@ public class DrawStack implements ICardStack {
     @Override
     public boolean containsCard(int value){throw new NotImplementedException();}
 
+    @Override
+    public Card[] takeTop(int amount) throws ManipulateException {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public Card[] takeTop(Card card) throws ManipulateException {
+        throw new NotImplementedException();
+    }
+
+    //endregion
+
+    //region public methods
+    public void removeTop(int count) throws ManipulateException {
+        if (count > size()) {
+            throw new ManipulateException("attempted to move more cards than present");
+        }
+        for (int i = 0; i < count; i++) {
+            cards.removeFirst();
+        }
+    }
+
+    public void addUnturnedCards(int count) throws ManipulateException {
+        if (!isEmpty()) {
+            throw new ManipulateException("tried to reset drawstck when not empty");
+        }
+        for (int i = 0; i < count; i++) {
+            addTop(new UntCard());
+        }
+    }
     //endregion
 }

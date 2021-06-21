@@ -10,8 +10,9 @@ public interface ICardStack {
     public int size();
     public ICard peekTop() throws NotFoundException;
     public ICard takeTop() throws ManipulateException;
+    public Card[] takeTop(int amount) throws ManipulateException;
+    public Card[] takeTop(Card card) throws ManipulateException;
     public boolean isEmpty();
     public boolean containsCard(Card card);
     public boolean containsCard(int value);
-
 }

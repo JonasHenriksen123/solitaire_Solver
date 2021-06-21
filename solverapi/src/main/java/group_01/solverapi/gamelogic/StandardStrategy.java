@@ -68,7 +68,9 @@ public class StandardStrategy {
             if (game.hasUnturnedBottomStack()) {
                 int stack = game.getUnturnedBottomStack();
                 move = new Move(Move.MoveType.TURN);
+                move.setPosition(new Position() {
 
+                });
                 move.setStartPosition(stack, Position.StackRow.BOTTOM_STACKS);
             }
         } catch (NotFoundException e) {
@@ -86,7 +88,7 @@ public class StandardStrategy {
                 if (game.hasFreeKing()) {
                     Card king = game.getFreeKing();
                     int stack = game.getEmptyBottomStack();
-                    move = new Move(Move.MoveType.KING_MOVE);
+                    move = new Move(Move.MoveType.MOVE);
 
                     move.setCard(king);
                     move.setStartPosition(king.getPosition(), king.getStackRow());
@@ -164,7 +166,6 @@ public class StandardStrategy {
                                 move.setCard(card);
                                 move.setStartPosition(card.getPosition(), card.getStackRow());
                                 move.setTargetPosition(target.getPosition(), target.getStackRow());
-                                move.setPosition(target);
                                 break;
                             }
                         }

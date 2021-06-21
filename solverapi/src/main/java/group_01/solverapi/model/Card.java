@@ -25,7 +25,7 @@ public class Card extends Position implements ICard {
         this.suit = suit;
     }
 
-    public boolean isPlaceable(Card other) {
+    public boolean isBottomPlaceable(Card other) {
         if (other.cardValue != this.cardValue -1) {
             return false;
         }
@@ -35,6 +35,14 @@ public class Card extends Position implements ICard {
             return this.suit == Suit.HEARTS || this.suit == Suit.DIAMOND;
         }
     }
+
+    public boolean isTopPlaceable(Card other) {
+        if (other.cardValue != this.cardValue + 1) {
+            return false;
+        }
+        return this.suit == other.suit;
+    }
+
     public boolean equals(Card card) {
         return this.suit == card.suit && this.cardValue == card.cardValue;
     }

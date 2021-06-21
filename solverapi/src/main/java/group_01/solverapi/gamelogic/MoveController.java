@@ -1,8 +1,7 @@
 package group_01.solverapi.gamelogic;
 
 import group_01.solverapi.exceptions.ManipulateException;
-import group_01.solverapi.model.Game;
-import group_01.solverapi.model.Move;
+import group_01.solverapi.model.*;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -18,19 +17,22 @@ public class MoveController {
     public void Execute(Move move) throws ManipulateException {
         switch (move.getType()) {
             case MOVE: {
-                //TODO execute move
-            }
-            case KING_MOVE: {
-                //TODO execute king move
+                Position start = move.getStartPosition();
+                Card[] cards = game.takeUntillCard(start.getStackRow(), start.getPosition(), move.getCard());
+
+                Position target = move.getTargetPosition();
+                game.placeCards(target.getStackRow(), target.getPosition(), cards);
             }
             case DRAW: {
-                //TODO execute draw move
+                if (game.drawStackEmpty()) {
+                    game.reusePlayStack();
+                } else {
+                    game.drawCards();
+                }
             }
             case TURN: {
-                //TODO execute turn move
-            }
-            case TOP_STACK_MOVE: {
-                //TODO execute topstackmove
+                Position position = move.getTurnPosition();
+                game.takeCards(position.getStackRow(), position.getPosition(), 1);
             }
             default: {
                 throw new ManipulateException("move had unknown movetype");

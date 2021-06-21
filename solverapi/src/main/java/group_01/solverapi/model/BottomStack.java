@@ -81,6 +81,34 @@ public class BottomStack implements ICardStack {
         }
         return false;
     }
+
+    @Override
+    public Card[] takeTop(int amount) throws ManipulateException {
+        if (amount > size()) {
+            throw new ManipulateException("amount too large");
+        }
+        Card[] cards = new Card[amount];
+        for (int i = 0; i < amount; i++) {
+            cards[i] = (Card) this.cards.removeFirst();
+        }
+        return cards;
+    }
+
+    @Override
+    public Card[] takeTop(Card card) throws ManipulateException {
+        int count = 1;
+        for (ICard card1 : cards) {
+            if (card1 instanceof Card) {
+                if (((Card) card1).equals(card)) {
+                    break;
+                }
+            }
+            count++;
+        }
+        return takeTop(count);
+    }
+
+
     //endregion
 
 

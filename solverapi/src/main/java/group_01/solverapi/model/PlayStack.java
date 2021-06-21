@@ -6,10 +6,10 @@ import group_01.solverapi.exceptions.ManipulateException;
 import java.util.LinkedList;
 
 public class PlayStack implements ICardStack {
-    private LinkedList<Card> cards;
+    private LinkedList<ICard> cards;
 
     public PlayStack(){
-        cards = new LinkedList<Card>();
+        cards = new LinkedList<ICard>();
     }
 
     //region overrides
@@ -46,9 +46,10 @@ public class PlayStack implements ICardStack {
     }
 
     public ICard takeTop() throws ManipulateException {
-        Card card = cards.getFirst();
-        cards.removeFirst();
-        return card;
+        if (cards.isEmpty()) {
+            throw new ManipulateException("Card stack is empty");
+        }
+        return cards.removeFirst();
     }
 
     @Override
@@ -66,6 +67,32 @@ public class PlayStack implements ICardStack {
         return this.cards.getFirst().equals(value);
     }
 
+    public Card[] takeTop(int amount) throws ManipulateException {
+        if (amount > 1) {
+            throw new ManipulateException("amount too large");
+        }
+        if (cards.isEmpty()) {
+            throw new ManipulateException("stack was empty");
+        }
+
+        ICard card1 = cards.peekFirst();
+        if (card1 instanceof Card) {
+            return new Card[] { (Card) cards.removeFirst()};
+        }
+        throw new ManipulateException("top card was unturned...?");
+    }
+
+    @Override
+    public Card[] takeTop(Card card) throws ManipulateException {
+        ICard card1 = cards.peekFirst();
+        if (card1 instanceof Card) {
+            if (card.equals((Card)card1)) {
+                return new Card[] { (Card) cards.removeFirst()};
+            }
+        }
+
+        throw new ManipulateException("Can only remove one card from playstack");
+    }
 
     //endregion
 

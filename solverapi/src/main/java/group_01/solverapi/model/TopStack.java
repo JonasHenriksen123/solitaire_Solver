@@ -26,7 +26,7 @@ public class TopStack implements ICardStack {
     }
 
     public void addTop(ICard[] newCards) throws ManipulateException {
-        for (int i = newCards.length-1; i >= 0; i--) {
+        for (int i = newCards.length - 1; i >= 0; i--) {
             if (newCards[i] instanceof Card) {
                 cards.addFirst((Card) newCards[i]);
             } else {
@@ -44,7 +44,7 @@ public class TopStack implements ICardStack {
     }
 
     public ICard takeTop() throws ManipulateException {
-        Card card =  cards.getFirst();
+        Card card = cards.getFirst();
         cards.removeFirst();
         return card;
     }
@@ -73,8 +73,28 @@ public class TopStack implements ICardStack {
         }
         return false;
     }
-    //endregion
 
+    public Card[] takeTop(int amount) throws ManipulateException {
+        if (amount > size()) {
+            throw new ManipulateException("amount too large");
+        }
+        Card[] cards = new Card[amount];
+        for (int i = 0; i < amount; i++) {
+            cards[i] = this.cards.removeFirst();
+        }
+        return cards;
+    }
+
+    @Override
+    public Card[] takeTop(Card card) throws ManipulateException {
+        //noinspection ConstantConditions
+        if (cards.peekFirst().equals(card)) {
+            return new Card[] { cards.removeFirst()};
+        }
+
+        throw new ManipulateException("Can only remove one card from playstack");
+    }
+    //endregion
 
 
     public Card getCard(int cardValue) throws NotFoundException {

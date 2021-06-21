@@ -36,6 +36,6 @@ public abstract class Position {
 
     @Override
     public String toString() {
-        return String.format("Stack-index %s in %s", position, stackRow);
+        return String.format("Stak-index %s i %s", position, stackRow);
     }
 }
