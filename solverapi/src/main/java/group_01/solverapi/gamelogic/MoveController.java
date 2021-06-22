@@ -34,7 +34,7 @@ public class MoveController {
             }
             case TURN: {
                 Position position = move.getTurnPosition();
-                game.takeCards(position.getStackRow(), position.getPosition(), 1);
+                game.removeCards(position.getStackRow(), position.getPosition(), 1);
                 break;
             }
             default: {
