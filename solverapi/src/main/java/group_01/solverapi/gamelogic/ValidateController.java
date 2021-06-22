@@ -2,6 +2,7 @@ package group_01.solverapi.gamelogic;
 
 import group_01.solverapi.exceptions.BadInputException;
 import group_01.solverapi.exceptions.InitializeException;
+import group_01.solverapi.model.Card;
 import group_01.solverapi.model.Game;
 import group_01.solverapi.model.Position;
 import group_01.solverapi.picrecaccess.ICardStateDTO;
@@ -12,7 +13,6 @@ public class ValidateController {
     private Game game;
 
     public ValidateController(Game game) {
-
         this.game = game;
     }
 
@@ -32,7 +32,11 @@ public class ValidateController {
         pos.setStackRow(Position.StackRow.TOP_STACKS);
         for (int i = 0; i < 4; i++) {
             pos.setPosition(i);
-            if (cardState.getCardsFromStack(pos).length != 0) {
+            Card[] cards = cardState.getCardsFromStack(pos);
+            if (cards.length != 0) {
+                if (cards.length == 1 && cards[0] == null) {
+                    continue;
+                }
                 throw new InitializeException();
             }
         }

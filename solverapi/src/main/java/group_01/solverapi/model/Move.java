@@ -17,7 +17,7 @@ public class Move {
     }
 
     public void setTargetPosition(int position, group_01.solverapi.model.Position.StackRow stackRow) {
-        this.startPosition = new LocalPos(position, stackRow);
+        this.targetPosition = new LocalPos(position, stackRow);
     }
 
     public Position getStartPosition() {
@@ -37,7 +37,7 @@ public class Move {
     }
 
     public void setStartPosition(int position, group_01.solverapi.model.Position.StackRow stackRow){
-        this.targetPosition = new LocalPos(position, stackRow);
+        this.startPosition = new LocalPos(position, stackRow);
     }
 
     public void setPosition(Position position){this.turnPosition = position;}

@@ -2,6 +2,8 @@ package group_01.solverapi.model;
 
 import group_01.solverapi.exceptions.BadInputException;
 
+import java.rmi.NotBoundException;
+
 public class Card extends Position implements ICard {
     private int cardValue;
     private Suit suit;
@@ -50,7 +52,6 @@ public class Card extends Position implements ICard {
     public boolean equals(int cardValue) {
         return this.cardValue == cardValue;
     }
-
 
     public Suit getSuit() {
         return suit;
@@ -138,4 +139,52 @@ public class Card extends Position implements ICard {
         return new Card(this.cardValue, this.suit);
     }
 
+    @Override
+    public String toString() {
+        String val, suit;
+        switch (this.cardValue) {
+            case 1: {
+                val = "Ace";
+                break;
+            }
+            case 11: {
+                val = "Jack";
+                break;
+            }
+            case 12: {
+                val = "Queen";
+                break;
+            }
+            case 13: {
+                val = "King";
+                break;
+            }
+            default: {
+                val = String.valueOf(cardValue);
+            }
+        }
+        switch (this.suit) {
+            case SPADES: {
+                suit = "Spades";
+                break;
+            }
+            case HEARTS: {
+                suit = "Hearts";
+                break;
+            }
+            case DIAMOND: {
+                suit = "Diamonds";
+                break;
+            }
+            case CLUB: {
+                suit = "Clubs";
+                break;
+            }
+            default: {
+                return null;
+            }
+        }
+
+        return String.format("%s of %s", val, suit);
+    }
 }

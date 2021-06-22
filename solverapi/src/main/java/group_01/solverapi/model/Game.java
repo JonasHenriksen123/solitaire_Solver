@@ -84,8 +84,8 @@ public class Game {
         pos.setStackRow(Position.StackRow.PLAY_STACK);
         Card[] card = cardState.getCardsFromStack(pos);
         if (card.length > 0) {
-            playStack.addTop(card[0]);
-            drawStack.removeTop(2);
+            playStack.addTop(new ICard[] {card[0], new UntCard(), new UntCard()});
+            drawStack.removeTop(3);
         }
     }
 

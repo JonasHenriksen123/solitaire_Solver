@@ -22,6 +22,7 @@ public class MoveController {
 
                 Position target = move.getTargetPosition();
                 game.placeCards(target.getStackRow(), target.getPosition(), cards);
+                break;
             }
             case DRAW: {
                 if (game.drawStackEmpty()) {
@@ -29,10 +30,12 @@ public class MoveController {
                 } else {
                     game.drawCards();
                 }
+                break;
             }
             case TURN: {
                 Position position = move.getTurnPosition();
                 game.takeCards(position.getStackRow(), position.getPosition(), 1);
+                break;
             }
             default: {
                 throw new ManipulateException("move had unknown movetype");

@@ -34,17 +34,8 @@ public class CardPlacementDAO {
         con.getResponseCode();
 
         String response = null;
-        try (BufferedReader br = new BufferedReader(
-                new InputStreamReader(con.getInputStream(), Charset.defaultCharset()))) {
-
-            StringBuilder strBuild = new StringBuilder();
-            String responseLine;
-
-            while ((responseLine = br.readLine()) != null) {
-                strBuild.append(responseLine.trim());
-            }
-
-           response = strBuild.toString();
+        try (InputStream str = con.getInputStream()) {
+            response = StreamUtils.copyToString(str, Charset.defaultCharset());
         } catch (IOException e) {
             //do nothing
         }

@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 public class SolitaireService implements ISolitaireService {
 
     @Override
-    public void Solve(InputStream stream) throws IOException {
+    public String Solve(InputStream stream) throws IOException {
         URL url = new URL("http://localhost:8081/solver");
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -34,22 +34,13 @@ public class SolitaireService implements ISolitaireService {
         }
 
 
-        connection.getResponseCode();
+        int resp = connection.getResponseCode();
 
         String response = null;
-        try (BufferedReader br = new BufferedReader(
-                new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
-
-            StringBuilder strBuild = new StringBuilder();
-            String responseLine;
-
-            while ((responseLine = br.readLine()) != null) {
-                strBuild.append(responseLine.trim());
-            }
-
-            response = strBuild.toString();
+        try (InputStream str = connection.getInputStream()) {
+            response = StreamUtils.copyToString(str, Charset.defaultCharset());
         }
 
-        return;
+        return response;
     }
 }

@@ -15,6 +15,8 @@ public class Controller {
     private ValidateController validateController;
     private CardPlacementDAO cardPlacementDAO;
 
+    private Boolean init = false;
+
     public Controller(Game game, LogicController logicController, ValidateController validateController, CardPlacementDAO cardPlacementDAO) {
         this.game = game;
         this.logicController = logicController;
@@ -44,6 +46,12 @@ public class Controller {
     }
 
     public Move makeMove(InputStream stream) throws BadInputException {
+        if (!init) {
+            Move move = this.InitializeGame(stream);
+            init = true;
+            return move;
+        }
+
         CardStateDTO cardState = null;
         try {
             cardState = cardPlacementDAO.getCurrentGameState(stream);
@@ -56,9 +64,5 @@ public class Controller {
         game.updateModel(cardState);
 
         return logicController.makeMove();
-    }
-
-    public void getCurrentGameState(ICardStateDTO cardState) {
-        game.updateModel(cardState);
     }
 }

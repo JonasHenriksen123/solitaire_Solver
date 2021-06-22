@@ -9,5 +9,5 @@ import java.util.stream.Stream;
 
 @Component
 public interface ISolitaireService {
-    void Solve(InputStream stream) throws IOException;
+    String Solve(InputStream stream) throws IOException;
 }

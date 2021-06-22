@@ -27,11 +27,7 @@ public class PlayStack implements ICardStack {
 
     public void addTop(ICard[] newCards) throws ManipulateException {
         for (int i = newCards.length-1; i >= 0; i--) {
-            if (newCards[i] instanceof Card) {
-                cards.addFirst((Card) newCards[i]);
-            } else {
-                throw new ManipulateException("Tried to add unturned card to top of stack");
-            }
+            cards.addFirst(newCards[i]);
         }
     }
 
