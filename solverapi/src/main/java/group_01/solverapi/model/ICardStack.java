@@ -5,6 +5,7 @@ import group_01.solverapi.exceptions.NotFoundException;
 
 public interface ICardStack {
     public void removeTop() throws ManipulateException;
+    public void removeTop(int amount) throws ManipulateException;
     public void addTop(ICard newCard) throws ManipulateException;
     public void addTop(ICard[] newCards) throws ManipulateException;
     public int size();

@@ -17,6 +17,22 @@ public class PlayStack implements ICardStack {
         cards.removeFirst();
     }
 
+    @Override
+    public void removeTop(int amount) throws ManipulateException {
+        if (amount > 1) {
+            throw new ManipulateException("amount too large");
+        }
+        if (cards.isEmpty()) {
+            throw new ManipulateException("stack was empty");
+        }
+
+        ICard card1 = cards.peekFirst();
+        if (card1 instanceof Card) {
+            cards.removeFirst();
+        }
+        throw new ManipulateException("top card was unturned...?");
+    }
+
     public void addTop(ICard newCard) throws ManipulateException {
         if (newCard instanceof Card) {
             cards.addFirst((Card) newCard);

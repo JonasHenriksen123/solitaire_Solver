@@ -489,6 +489,42 @@ public class Game {
         return stack.takeTop(amount);
     }
 
+    public void removeCards(Position.StackRow stackRow, int stackIndex, int amount) {
+        ICardStack stack;
+        switch (stackRow) {
+            case BOTTOM_STACKS: {
+                if (stackIndex > 6) {
+                    throw new ManipulateException("index out of bounds");
+                }
+                stack = bottomsStacks[stackIndex];
+                break;
+            }
+            case TOP_STACKS: {
+                if (stackIndex > 3) {
+                    throw new ManipulateException("index out of bounds");
+                }
+                stack = topStacks[stackIndex];
+                break;
+            }
+            case PLAY_STACK: {
+                if (amount > 1) {
+                    throw new ManipulateException("amount out of bounds");
+                }
+                stack = playStack;
+                break;
+            }
+            default: {
+                throw new ManipulateException("Unknown cardstack");
+            }
+        }
+
+        if (amount > stack.size()) {
+            throw new ManipulateException("Trying to remove too many cards");
+        }
+
+        stack.removeTop(amount);
+    }
+
     public Card[] takeUntillCard(Position.StackRow stackRow, int stackIndex, Card card) {
         ICardStack stack;
         switch (stackRow) {

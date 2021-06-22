@@ -36,7 +36,7 @@ function userAction() {
         mode: "no-cors"
     }).then(function (response) {
         //alert(response.json())
-        alert(response.ok)
+
         response.text().then(function (text) {
             var html = list.innerHTML;
             if (html == null) {

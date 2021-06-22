@@ -75,9 +75,7 @@ public class DrawStack implements ICardStack {
         throw new NotImplementedException();
     }
 
-    //endregion
-
-    //region public methods
+    @Override
     public void removeTop(int count) throws ManipulateException {
         if (count > size()) {
             throw new ManipulateException("attempted to move more cards than present");
@@ -86,7 +84,9 @@ public class DrawStack implements ICardStack {
             cards.removeFirst();
         }
     }
+    //endregion
 
+    //region public methods
     public void addUnturnedCards(int count) throws ManipulateException {
         if (!isEmpty()) {
             throw new ManipulateException("tried to reset drawstck when not empty");

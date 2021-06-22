@@ -21,6 +21,16 @@ public class BottomStack implements ICardStack {
         cards.removeFirst();
     }
 
+    @Override
+    public void removeTop(int amount) throws ManipulateException {
+        if (amount > size()) {
+            throw new ManipulateException("amount too large");
+        }
+        for (int i = 0; i < amount; i++) {
+           this.cards.removeFirst();
+        }
+    }
+
     public void addTop(ICard newCard) throws ManipulateException {
         if (newCard instanceof Card)
             cards.addFirst(newCard);
