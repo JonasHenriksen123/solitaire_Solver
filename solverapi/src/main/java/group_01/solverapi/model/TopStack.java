@@ -87,8 +87,12 @@ public class TopStack implements ICardStack {
 
     @Override
     public Card[] takeTop(Card card) throws ManipulateException {
-        //noinspection ConstantConditions
-        if (cards.peekFirst().equals(card)) {
+        Card card1 = cards.peekFirst();
+        if (card1 == null) {
+            throw new ManipulateException("No cards in stack");
+        }
+
+        if (card1.equals(card)) {
             return new Card[] { cards.removeFirst()};
         }
 
@@ -98,9 +102,13 @@ public class TopStack implements ICardStack {
 
 
     public Card getCard(int cardValue) throws NotFoundException {
-        for (Card card : cards) {
-            if (card.equals(cardValue))
-                return card;
+        Card card = cards.peekFirst();
+        if (card == null) {
+            throw new ManipulateException("No cards in stack");
+        }
+
+        if (card.equals(cardValue)) {
+            return card;
         }
         throw new NotFoundException(String.format("No card with value %d", cardValue));
     }

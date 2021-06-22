@@ -324,6 +324,7 @@ public class Game {
         int a = 0;
         for (Card card1: cards) {
             card[a] = card1;
+            a++;
         }
         return card;
     }
@@ -444,6 +445,7 @@ public class Game {
         int a = 0;
         for (Card card1: cards) {
             card[a] = card1;
+            a++;
         }
         return card;
     }

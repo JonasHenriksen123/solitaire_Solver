@@ -172,7 +172,13 @@ public class BottomStack implements ICardStack {
             i--;
         }
 
-        return (Card[]) cards.toArray();
+        Card[] cards1 = new Card[cards.size()];
+        int a = 0;
+        for (Card card1: cards) {
+            cards1[a] = card1;
+            a++;
+        }
+        return cards1;
     }
 
     public Card[] getTurnedCards() {
@@ -188,7 +194,14 @@ public class BottomStack implements ICardStack {
                 break;
             }
         }
-        return (Card[]) cards.toArray();
+
+        Card[] cards1 = new Card[cards.size()];
+        int a = 0;
+        for (Card card: cards) {
+            cards1[a] = card;
+            a++;
+        }
+        return cards1;
     }
 
 }
