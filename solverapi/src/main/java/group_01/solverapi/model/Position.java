@@ -5,9 +5,9 @@ public abstract class Position {
     private StackRow stackRow;
 
     public enum StackRow {
-        TOP_STACKS("Top_Stacks"),
-        BOTTOM_STACKS("Bottom_Stacks"),
-        PLAY_STACK("Play_Stack");
+        TOP_STACKS("Foundations"),
+        BOTTOM_STACKS("Tableau"),
+        PLAY_STACK("Talon");
 
         private String name;
 
@@ -36,6 +36,6 @@ public abstract class Position {
 
     @Override
     public String toString() {
-        return String.format("Stak-index %s i %s", position, stackRow);
+        return String.format("Stak-index %s in %s", position, stackRow);
     }
 }

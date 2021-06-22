@@ -53,12 +53,12 @@ public class Move {
     public String toString() {
         switch (type) {
             case MOVE:
-                return String.format("Ryk %s fra %s %s til %s %s.", card.toString(), startPosition.getStackRow(),
+                return String.format("Move %s from %s %s to %s %s.", card.toString(), startPosition.getStackRow(),
                         startPosition.getPosition(), targetPosition.getStackRow(), targetPosition.getPosition());
             case DRAW:
-                return "Træk tre kort fra bunken.";
+                return "Draw three cards from stock.";
             case TURN:
-                return String.format("Vend kort i %s %s.", turnPosition.getStackRow(), turnPosition.getPosition());
+                return String.format("Turn card in %s %s.", turnPosition.getStackRow(), turnPosition.getPosition());
             default:
                 return "Kan ikke finde et træk.";
         }
