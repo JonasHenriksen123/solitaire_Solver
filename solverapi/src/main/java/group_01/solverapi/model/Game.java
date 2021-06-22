@@ -61,15 +61,18 @@ public class Game {
                 continue;
             }
             Card[] turnedCards = bottomsStacks[i].getTurnedCards();
-            if (cards.length > turnedCards.length) {
-                int offset = cards.length - turnedCards.length;
 
+            if (turnedCards == null || cards.length > turnedCards.length) {
+                int offset = 0;
+                if (turnedCards != null) {
+                 offset = cards.length - turnedCards.length;
+                }
                 for (int a = cards.length - 1; a >= 0; a--) {
                     if (a - offset < 0
                         && ((Card)topStacks[i].peekTop()).isBottomPlaceable(cards[a])) {
                         topStacks[i].addTop(cards[a]);
                     }
-                    if (!cards[a].equals(turnedCards[a - offset])) {
+                    if (turnedCards != null && !cards[a].equals(turnedCards[a - offset])) {
                         throw new BadInputException("Fatal error when updating model");
                     }
                 }

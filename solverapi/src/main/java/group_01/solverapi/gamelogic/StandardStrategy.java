@@ -22,12 +22,17 @@ public class StandardStrategy {
             return selectBestMove;
         }
 
+        //turn card if possible
+        selectBestMove = faceDownCardFreeingMove();
+        if (selectBestMove != null) {
+            return selectBestMove;
+        }
+
         //2) flyt es/to til mulig placering
         selectBestMove = moveAceOrTwo();
         if (selectBestMove != null) {
             return selectBestMove;
         }
-
 
         //3) flyt altid række med flest underliggende kort
         selectBestMove = freeMostFaceDownCards();
@@ -41,16 +46,8 @@ public class StandardStrategy {
             return selectBestMove;
         }
 
-
         //5) skab ikke en tom række, hvis en konge ikke er tilgængelig
         selectBestMove = kingToEmptyStack();
-        if (selectBestMove != null) {
-            return selectBestMove;
-        }
-
-
-        //6) vælg kongens suit efter mulige træk på hånden
-        selectBestMove = faceDownCardFreeingMove();
         if (selectBestMove != null) {
             return selectBestMove;
         }
@@ -179,5 +176,4 @@ public class StandardStrategy {
         }
         return move;
     }
-
 }
