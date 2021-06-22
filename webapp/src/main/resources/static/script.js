@@ -37,9 +37,10 @@ function userAction() {
     }).then(function (response) {
         //alert(response.json())
         alert(response.ok)
-        response.text().then(function (text) {
-            list.innerHTML+="<li>" + response + "</li>";
-        })
+        let responseText = response.text();
+
+        list.innerHTML+="<li>" + responseText + "</li>";
+
 
         return response
     })
