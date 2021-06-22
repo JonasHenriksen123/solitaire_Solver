@@ -65,10 +65,7 @@ public class StandardStrategy {
             if (game.hasUnturnedBottomStack()) {
                 int stack = game.getUnturnedBottomStack();
                 move = new Move(Move.MoveType.TURN);
-                move.setPosition(new Position() {
-
-                });
-                move.setStartPosition(stack, Position.StackRow.BOTTOM_STACKS);
+                move.setTurnPosition(stack, Position.StackRow.BOTTOM_STACKS);
             }
         } catch (NotFoundException e) {
             System.out.println("hit exception at faceDownCardFreeingMove strategy");

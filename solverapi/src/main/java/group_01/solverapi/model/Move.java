@@ -16,7 +16,7 @@ public class Move {
         this.card = card;
     }
 
-    public void setTargetPosition(int position, group_01.solverapi.model.Position.StackRow stackRow) {
+    public void setTargetPosition(int position, Position.StackRow stackRow) {
         this.targetPosition = new LocalPos(position, stackRow);
     }
 
@@ -36,11 +36,13 @@ public class Move {
         return card;
     }
 
-    public void setStartPosition(int position, group_01.solverapi.model.Position.StackRow stackRow){
+    public void setStartPosition(int position, Position.StackRow stackRow){
         this.startPosition = new LocalPos(position, stackRow);
     }
 
-    public void setPosition(Position position){this.turnPosition = position;}
+    public void setTurnPosition(int position, Position.StackRow stackRow){
+        this.turnPosition = new LocalPos(position, stackRow);
+    }
 
     public MoveType getType() {
         return type;
