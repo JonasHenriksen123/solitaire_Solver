@@ -68,7 +68,7 @@ public class Game {
                  offset = cards.length - turnedCards.length;
                 }
                 for (int a = cards.length - 1; a >= 0; a--) {
-                    if (a - offset < 0
+                    if (a - offset <= 0
                         && ((Card)topStacks[i].peekTop()).isBottomPlaceable(cards[a])) {
                         topStacks[i].addTop(cards[a]);
                     }
