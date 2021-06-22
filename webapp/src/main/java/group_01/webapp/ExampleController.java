@@ -28,23 +28,28 @@ public class ExampleController {
 
     @RequestMapping("solve")
     @PostMapping
-    public ResponseEntity POST(HttpServletRequest request) {
+    public ResponseEntity<String> POST(HttpServletRequest request) {
         InputStream stream;
         try {
             stream = request.getInputStream();
         } catch (IOException e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+        String resp = null;
         try {
-            solitaireService.Solve(stream);
+            resp = solitaireService.Solve(stream);
         } catch (MalformedURLException e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+        if (resp == null) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<String>(resp ,HttpStatus.ACCEPTED);
 
     }
 }
