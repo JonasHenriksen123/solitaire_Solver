@@ -10,6 +10,8 @@ function startGame(){
     window.location="camera.html";
 }
 
+var list = document.getElementById("ollist");
+
 function userAction() {
     var canvas = document.getElementById("canvas");
     var video = document.getElementById("video");
@@ -35,6 +37,9 @@ function userAction() {
     }).then(function (response) {
         //alert(response.json())
         alert(response.ok)
+        response.text().then(function (text) {
+            list.innerHTML+="<li>" + response + "</li>";
+        })
 
         return response
     })
@@ -55,15 +60,11 @@ function userAction() {
     //    .then(function (res){return res.json()})
     //    .then(function (data){alert(JSON.stringify(data))})
     //    .then(data => console.log(data))
-    //var list = document.getElementById("ollist");
+
+
     //var jsondata = 1;
     //var jsondata1 = 2;
     //Kan også være man bare kan lave hele string'en i controlleren, og så bare sætte den ind
-
-    //list.innerHTML+="<li>Ryk" + jsondata + "til" + jsondata1 + "</li>";
-
-
-
 }
 
 
