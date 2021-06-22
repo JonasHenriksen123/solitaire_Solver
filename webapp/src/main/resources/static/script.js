@@ -38,7 +38,13 @@ function userAction() {
         //alert(response.json())
         alert(response.ok)
         response.text().then(function (text) {
-            list.innerHTML+="<li>" + text + "</li>";
+            var html = list.innerHTML;
+            if (html == null) {
+                list.innerHTML =  "<li>" + text + "</li>";
+            } else {
+                list.innerHTML += "<li>" + text + "</li>";
+            }
+
         });
 
         return response
