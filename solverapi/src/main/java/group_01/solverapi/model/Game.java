@@ -316,7 +316,12 @@ public class Game {
         if (cards.isEmpty())
             throw new NotFoundException(String.format("No cards with value %o found", cardValue));
 
-        return (Card[]) cards.toArray();
+        Card[] card = new Card[cards.size()];
+        int a = 0;
+        for (Card card1: cards) {
+            card[a] = card1;
+        }
+        return card;
     }
 
     public boolean isTopPlaceable(Card card) {
@@ -430,7 +435,13 @@ public class Game {
         if (cards.isEmpty()) {
             return null;
         }
-        return (Card[]) cards.toArray();
+
+        Card[] card = new Card[cards.size()];
+        int a = 0;
+        for (Card card1: cards) {
+            card[a] = card1;
+        }
+        return card;
     }
 
     public Card[] takeCards(Position.StackRow stackRow, int stackIndex, int amount) {
