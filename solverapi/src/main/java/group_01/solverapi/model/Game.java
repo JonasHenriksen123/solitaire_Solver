@@ -40,7 +40,9 @@ public class Game {
         for (int i = 0; i < 4; i++) {
             pos.setPosition(i);
             Card[] cards = cardState.getCardsFromStack(pos);
-            if (cards == null || cards.length == 0) {
+            if (cards == null
+                    || cards.length == 0
+                    || cards.length == 1 && cards[0] == null) {
                 continue;
             }
             ICard tempCard = topStacks[i].peekTop();
@@ -53,7 +55,9 @@ public class Game {
         for (int i = 0; i < 7; i++) {
             pos.setPosition(i);
             Card[] cards = cardState.getCardsFromStack(pos);
-            if (cards == null || cards.length == 0) {
+            if (cards == null
+                    || cards.length == 0
+                    || cards.length == 1 && card[0] == null) {
                 continue;
             }
             Card[] turnedCards = bottomsStacks[i].getTurnedCards();
