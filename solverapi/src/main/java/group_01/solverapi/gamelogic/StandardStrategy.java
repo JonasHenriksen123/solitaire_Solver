@@ -22,31 +22,31 @@ public class StandardStrategy {
             return selectBestMove;
         }
 
-        //turn card if possible
+        //2)turn card if possible
         selectBestMove = faceDownCardFreeingMove();
         if (selectBestMove != null) {
             return selectBestMove;
         }
 
-        //2) flyt es/to til mulig placering
+        //3) flyt es/to til mulig placering
         selectBestMove = moveAceOrTwo();
         if (selectBestMove != null) {
             return selectBestMove;
         }
 
-        //3) flyt altid række med flest underliggende kort
+        //4) flyt altid række med flest underliggende kort
         selectBestMove = freeMostFaceDownCards();
         if (selectBestMove != null) {
             return selectBestMove;
         }
 
-        //4) flyt kort som skaber mulighed for nyt træk eller fritlægger underliggende kort
+        //5) flyt kort som skaber mulighed for nyt træk eller fritlægger underliggende kort
         selectBestMove = setupFaceDownCardFreeingMove();
         if (selectBestMove != null) {
             return selectBestMove;
         }
 
-        //5) skab ikke en tom række, hvis en konge ikke er tilgængelig
+        //6) Flyt konge til tom kolonne
         selectBestMove = kingToEmptyStack();
         if (selectBestMove != null) {
             return selectBestMove;
