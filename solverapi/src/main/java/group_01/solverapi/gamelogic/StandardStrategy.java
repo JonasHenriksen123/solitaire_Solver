@@ -104,7 +104,7 @@ public class StandardStrategy {
                 Card[] cards = game.getTopPlaceableBottomCards();
                 if (cards != null && cards.length > 0){
                     for (Card card : cards) {
-                        //TODO find a way to predict usefull moves
+                        //this part is not ready yet
                     }
                 }
             }

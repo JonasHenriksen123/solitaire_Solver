@@ -46,7 +46,7 @@ public class DoSomethingStrategy {
         }
         Move move = null;
 
-        //TODO find a way to find a random "usefull" move
+        //this part is not ready yet
 
         return move;
     }

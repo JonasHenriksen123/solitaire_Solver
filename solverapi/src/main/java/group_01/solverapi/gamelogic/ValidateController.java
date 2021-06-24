@@ -17,7 +17,7 @@ public class ValidateController {
     }
 
     public void validate(ICardStateDTO cardState) throws BadInputException {
-        //TODO validate that applying changes wont destoy models integrity
+        //this part is not ready
     }
 
     public void validateinit(ICardStateDTO cardState) throws InitializeException {
